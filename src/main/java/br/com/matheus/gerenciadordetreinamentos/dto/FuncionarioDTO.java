@@ -1,2 +1,140 @@
-package br.com.matheus.gerenciadordetreinamentos.dto;public class FuncionarioDTO {
+package br.com.matheus.gerenciadordetreinamentos.dto;
+
+import br.com.matheus.gerenciadordetreinamentos.domain.enums.Genero;
+import org.springframework.hateoas.RepresentationModel;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> {
+
+    private Long id;
+    private String nome;
+    private String email;
+    private String usuario;
+    private String senha;
+    private String telefone;
+    private String cpf;
+    private Genero genero;
+    private LocalDate dataNascimento;
+    private LocalDateTime dataRegistro;
+    private boolean ativo;
+
+    public FuncionarioDTO(Long id, String nome, String email, String usuario, String senha, String telefone, String cpf, Genero genero, LocalDate dataNascimento, LocalDateTime dataRegistro, boolean ativo) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.cpf = cpf;
+        this.genero = genero;
+        this.dataNascimento = dataNascimento;
+        this.dataRegistro = dataRegistro;
+        this.ativo = ativo;
+    }
+
+    public FuncionarioDTO(String nome, String email, String usuario, String senha, String telefone, String cpf, Genero genero, LocalDate dataNascimento, LocalDateTime dataRegistro, boolean ativo) {
+        this.nome = nome;
+        this.email = email;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.cpf = cpf;
+        this.genero = genero;
+        this.dataNascimento = dataNascimento;
+        this.dataRegistro = dataRegistro;
+        this.ativo = ativo;
+    }
+
+    public FuncionarioDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public LocalDateTime getDataRegistro() {
+        return dataRegistro;
+    }
+
+    public void setDataRegistro(LocalDateTime dataRegistro) {
+        this.dataRegistro = dataRegistro;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 }

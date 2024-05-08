@@ -1,4 +1,4 @@
-package br.com.matheus.gerenciadordetreinamentos.domain.model;
+package br.com.matheus.gerenciadordetreinamentos.domain.enums;
 
 public enum Genero {
 
