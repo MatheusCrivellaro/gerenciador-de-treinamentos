@@ -1,10 +1,14 @@
 package br.com.matheus.gerenciadordetreinamentos.dto;
 
+import br.com.matheus.gerenciadordetreinamentos.controller.AdministradorController;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 public class TreinamentoDTO extends RepresentationModel<TreinamentoDTO> {
 
@@ -42,6 +46,10 @@ public class TreinamentoDTO extends RepresentationModel<TreinamentoDTO> {
     }
 
     public TreinamentoDTO() {
+    }
+
+    public void addWithSelfRel() {
+        this.add(linkTo(methodOn(AdministradorController.class).findById(this.getKey())).withSelfRel());
     }
 
     public Long getKey() {

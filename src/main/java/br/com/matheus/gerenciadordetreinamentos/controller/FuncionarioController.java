@@ -1,9 +1,7 @@
 package br.com.matheus.gerenciadordetreinamentos.controller;
 
 import br.com.matheus.gerenciadordetreinamentos.Service.FuncionarioService;
-import br.com.matheus.gerenciadordetreinamentos.dto.AdministradorDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.FuncionarioDTO;
-import br.com.matheus.gerenciadordetreinamentos.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

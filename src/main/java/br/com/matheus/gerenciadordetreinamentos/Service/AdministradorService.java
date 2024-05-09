@@ -1,6 +1,5 @@
 package br.com.matheus.gerenciadordetreinamentos.Service;
 
-import br.com.matheus.gerenciadordetreinamentos.controller.AdministradorController;
 import br.com.matheus.gerenciadordetreinamentos.dto.AdministradorDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.AdministradorMapper;

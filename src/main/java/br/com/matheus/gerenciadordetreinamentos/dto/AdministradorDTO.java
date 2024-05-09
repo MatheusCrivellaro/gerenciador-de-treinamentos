@@ -75,15 +75,4 @@ public class AdministradorDTO extends RepresentationModel<AdministradorDTO> {
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
     }
-
-    @Override
-    public String toString() {
-        return "AdministradorDTO{" +
-                "key=" + key +
-                ", nome='" + nome + '\'' +
-                ", usuario='" + usuario + '\'' +
-                ", senha='" + senha + '\'' +
-                ", ativo=" + ativo +
-                '}';
-    }
 }
