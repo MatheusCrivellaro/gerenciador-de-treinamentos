@@ -1,6 +1,6 @@
 package br.com.matheus.gerenciadordetreinamentos.dto;
 
-import br.com.matheus.gerenciadordetreinamentos.controller.AdministradorController;
+import br.com.matheus.gerenciadordetreinamentos.controller.GrupoController;
 import org.springframework.hateoas.RepresentationModel;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -30,7 +30,7 @@ public class GrupoDTO extends RepresentationModel<GrupoDTO> {
     }
 
     public void addWithSelfRel() {
-        this.add(linkTo(methodOn(AdministradorController.class).findById(this.getKey())).withSelfRel());
+        this.add(linkTo(methodOn(GrupoController.class).findById(this.getKey())).withSelfRel());
     }
 
     public Long getKey() {

@@ -1,7 +1,11 @@
-package br.com.matheus.gerenciadordetreinamentos.Service;
+package br.com.matheus.gerenciadordetreinamentos.service;
 
+import br.com.matheus.gerenciadordetreinamentos.domain.model.Administrador;
+import br.com.matheus.gerenciadordetreinamentos.domain.model.Funcionario;
+import br.com.matheus.gerenciadordetreinamentos.dto.AdministradorDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.FuncionarioDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
+import br.com.matheus.gerenciadordetreinamentos.mapeador.AdministradorMapper;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.FuncionarioMapper;
 import br.com.matheus.gerenciadordetreinamentos.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +45,18 @@ public class FuncionarioService {
         var listDto = FuncionarioMapper.INSTANCE.toDTOList(listEntity);
         listDto.forEach(FuncionarioDTO::addWithSelfRel);
         return listDto;
+    }
+
+    private List<FuncionarioDTO> buildListDTO(List<Funcionario> listEntity) {
+        var listDto = FuncionarioMapper.INSTANCE.toDTOList(listEntity);
+        listDto.forEach(FuncionarioDTO::addWithSelfRel);
+        return listDto;
+    }
+
+    private FuncionarioDTO buildDTO(Funcionario entity) {
+        var dto = FuncionarioMapper.INSTANCE.toDTO(entity);
+        dto.addWithSelfRel();
+        return dto;
     }
 
 }

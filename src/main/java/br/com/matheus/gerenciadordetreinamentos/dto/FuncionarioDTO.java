@@ -1,6 +1,6 @@
 package br.com.matheus.gerenciadordetreinamentos.dto;
 
-import br.com.matheus.gerenciadordetreinamentos.controller.AdministradorController;
+import br.com.matheus.gerenciadordetreinamentos.controller.FuncionarioController;
 import br.com.matheus.gerenciadordetreinamentos.domain.enums.Genero;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -55,7 +55,7 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> {
     }
 
     public void addWithSelfRel() {
-        this.add(linkTo(methodOn(AdministradorController.class).findById(this.getKey())).withSelfRel());
+        this.add(linkTo(methodOn(FuncionarioController.class).findById(this.getKey())).withSelfRel());
     }
 
     public Long getKey() {

@@ -1,6 +1,6 @@
 package br.com.matheus.gerenciadordetreinamentos.dto;
 
-import br.com.matheus.gerenciadordetreinamentos.controller.AdministradorController;
+import br.com.matheus.gerenciadordetreinamentos.controller.ProfessorController;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
@@ -47,7 +47,7 @@ public class ProfessorDTO extends RepresentationModel<ProfessorDTO> {
     }
 
     public void addWithSelfRel() {
-        this.add(linkTo(methodOn(AdministradorController.class).findById(this.getKey())).withSelfRel());
+        this.add(linkTo(methodOn(ProfessorController.class).findById(this.getKey())).withSelfRel());
     }
 
     public Long getKey() {

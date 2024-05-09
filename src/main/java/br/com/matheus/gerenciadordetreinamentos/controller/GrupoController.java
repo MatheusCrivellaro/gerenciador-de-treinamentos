@@ -1,7 +1,7 @@
 package br.com.matheus.gerenciadordetreinamentos.controller;
 
-import br.com.matheus.gerenciadordetreinamentos.dto.FuncionarioDTO;
-import br.com.matheus.gerenciadordetreinamentos.service.FuncionarioService;
+import br.com.matheus.gerenciadordetreinamentos.dto.GrupoDTO;
+import br.com.matheus.gerenciadordetreinamentos.service.GrupoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/funcionario")
-public class FuncionarioController {
+@RequestMapping("/grupo")
+public class GrupoController {
 
     @Autowired
-    private FuncionarioService service;
+    private GrupoService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<FuncionarioDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<GrupoDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 

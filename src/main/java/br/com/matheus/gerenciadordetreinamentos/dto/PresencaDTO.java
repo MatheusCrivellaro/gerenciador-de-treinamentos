@@ -1,6 +1,6 @@
 package br.com.matheus.gerenciadordetreinamentos.dto;
 
-import br.com.matheus.gerenciadordetreinamentos.controller.AdministradorController;
+import br.com.matheus.gerenciadordetreinamentos.controller.PresencaController;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
@@ -29,7 +29,7 @@ public class PresencaDTO extends RepresentationModel<PresencaDTO> {
     }
 
     public void addWithSelfRel() {
-        this.add(linkTo(methodOn(AdministradorController.class).findById(this.getKey())).withSelfRel());
+        this.add(linkTo(methodOn(PresencaController.class).findById(this.getKey())).withSelfRel());
     }
 
     public Long getKey() {
