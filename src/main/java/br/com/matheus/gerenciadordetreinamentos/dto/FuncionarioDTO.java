@@ -1,10 +1,13 @@
 package br.com.matheus.gerenciadordetreinamentos.dto;
 
+import br.com.matheus.gerenciadordetreinamentos.controller.AdministradorController;
 import br.com.matheus.gerenciadordetreinamentos.domain.enums.Genero;
 import org.springframework.hateoas.RepresentationModel;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> {
 
@@ -48,6 +51,10 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> {
     }
 
     public FuncionarioDTO() {
+    }
+
+    public void addWithSelfRel() {
+        this.add(linkTo(methodOn(AdministradorController.class).findById(this.getKey())).withSelfRel());
     }
 
     public Long getKey() {
