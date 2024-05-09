@@ -8,7 +8,7 @@ import java.time.LocalTime;
 
 public class TreinamentoDTO extends RepresentationModel<TreinamentoDTO> {
 
-    private Long id;
+    private Long key;
     private String nome;
     private String descricao;
     private String codigo;
@@ -18,8 +18,8 @@ public class TreinamentoDTO extends RepresentationModel<TreinamentoDTO> {
     private LocalDateTime dataCadastro;
     private Boolean ativo;
 
-    public TreinamentoDTO(Long id, String nome, String descricao, String codigo, LocalDate data, LocalTime abertura, LocalTime encerramento, LocalDateTime dataCadastro, Boolean ativo) {
-        this.id = id;
+    public TreinamentoDTO(Long key, String nome, String descricao, String codigo, LocalDate data, LocalTime abertura, LocalTime encerramento, LocalDateTime dataCadastro, Boolean ativo) {
+        this.key = key;
         this.nome = nome;
         this.descricao = descricao;
         this.codigo = codigo;
@@ -44,12 +44,12 @@ public class TreinamentoDTO extends RepresentationModel<TreinamentoDTO> {
     public TreinamentoDTO() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getKey() {
+        return key;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setKey(Long key) {
+        this.key = key;
     }
 
     public String getNome() {

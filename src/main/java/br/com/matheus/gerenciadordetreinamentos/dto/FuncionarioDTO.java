@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> {
 
-    private Long id;
+    private Long key;
     private String nome;
     private String email;
     private String usuario;
@@ -20,8 +20,8 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> {
     private LocalDateTime dataRegistro;
     private boolean ativo;
 
-    public FuncionarioDTO(Long id, String nome, String email, String usuario, String senha, String telefone, String cpf, Genero genero, LocalDate dataNascimento, LocalDateTime dataRegistro, boolean ativo) {
-        this.id = id;
+    public FuncionarioDTO(Long key, String nome, String email, String usuario, String senha, String telefone, String cpf, Genero genero, LocalDate dataNascimento, LocalDateTime dataRegistro, boolean ativo) {
+        this.key = key;
         this.nome = nome;
         this.email = email;
         this.usuario = usuario;
@@ -50,12 +50,12 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> {
     public FuncionarioDTO() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getKey() {
+        return key;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setKey(Long key) {
+        this.key = key;
     }
 
     public String getNome() {

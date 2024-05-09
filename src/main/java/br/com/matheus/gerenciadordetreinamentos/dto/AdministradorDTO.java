@@ -4,14 +4,14 @@ import org.springframework.hateoas.RepresentationModel;
 
 public class AdministradorDTO extends RepresentationModel<AdministradorDTO> {
 
-    private Long id;
+    private Long key;
     private String nome;
     private String usuario;
     private String senha;
     private Boolean ativo;
 
-    public AdministradorDTO(Long id, String nome, String usuario, String senha, Boolean ativo) {
-        this.id = id;
+    public AdministradorDTO(Long key, String nome, String usuario, String senha, Boolean ativo) {
+        this.key = key;
         this.nome = nome;
         this.usuario = usuario;
         this.senha = senha;
@@ -28,12 +28,12 @@ public class AdministradorDTO extends RepresentationModel<AdministradorDTO> {
     public AdministradorDTO() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getKey() {
+        return key;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setKey(Long key) {
+        this.key = key;
     }
 
     public String getNome() {
@@ -66,5 +66,16 @@ public class AdministradorDTO extends RepresentationModel<AdministradorDTO> {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    @Override
+    public String toString() {
+        return "AdministradorDTO{" +
+                "key=" + key +
+                ", nome='" + nome + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", senha='" + senha + '\'' +
+                ", ativo=" + ativo +
+                '}';
     }
 }

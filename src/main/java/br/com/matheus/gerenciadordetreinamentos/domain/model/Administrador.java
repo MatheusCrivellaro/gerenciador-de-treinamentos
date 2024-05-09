@@ -70,4 +70,15 @@ public class Administrador {
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
     }
+
+    @Override
+    public String toString() {
+        return "Administrador{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", senha='" + senha + '\'' +
+                ", ativo=" + ativo +
+                '}';
+    }
 }

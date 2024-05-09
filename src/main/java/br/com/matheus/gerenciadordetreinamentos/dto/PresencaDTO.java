@@ -6,12 +6,12 @@ import java.time.LocalDateTime;
 
 public class PresencaDTO extends RepresentationModel<PresencaDTO> {
 
-    private Long id;
+    private Long key;
     private LocalDateTime dataPublicacao;
     private Boolean presente;
 
-    public PresencaDTO(Long id, LocalDateTime dataPublicacao, Boolean presente) {
-        this.id = id;
+    public PresencaDTO(Long key, LocalDateTime dataPublicacao, Boolean presente) {
+        this.key = key;
         this.dataPublicacao = dataPublicacao;
         this.presente = presente;
     }
@@ -24,12 +24,12 @@ public class PresencaDTO extends RepresentationModel<PresencaDTO> {
     public PresencaDTO() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getKey() {
+        return key;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setKey(Long key) {
+        this.key = key;
     }
 
     public LocalDateTime getDataPublicacao() {

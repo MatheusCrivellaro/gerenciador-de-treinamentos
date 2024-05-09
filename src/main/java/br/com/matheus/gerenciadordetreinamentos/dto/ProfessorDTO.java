@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class ProfessorDTO extends RepresentationModel<ProfessorDTO> {
 
-    private Long id;
+    private Long key;
     private String nome;
     private String usuario;
     private String senha;
@@ -16,8 +16,8 @@ public class ProfessorDTO extends RepresentationModel<ProfessorDTO> {
     private LocalDateTime dataCadastro;
     private Boolean ativo;
 
-    public ProfessorDTO(Long id, String nome, String usuario, String senha, String email, String telefone, LocalDateTime dataNascimento, LocalDateTime dataCadastro, Boolean ativo) {
-        this.id = id;
+    public ProfessorDTO(Long key, String nome, String usuario, String senha, String email, String telefone, LocalDateTime dataNascimento, LocalDateTime dataCadastro, Boolean ativo) {
+        this.key = key;
         this.nome = nome;
         this.usuario = usuario;
         this.senha = senha;
@@ -42,12 +42,12 @@ public class ProfessorDTO extends RepresentationModel<ProfessorDTO> {
     public ProfessorDTO() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getKey() {
+        return key;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setKey(Long key) {
+        this.key = key;
     }
 
     public String getNome() {

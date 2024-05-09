@@ -1,17 +1,16 @@
 package br.com.matheus.gerenciadordetreinamentos.dto;
 
-import br.com.matheus.gerenciadordetreinamentos.domain.model.Grupo;
 import org.springframework.hateoas.RepresentationModel;
 
 public class GrupoDTO extends RepresentationModel<GrupoDTO> {
 
-    private Long id;
+    private Long key;
     private String nome;
     private String descricao;
     private Boolean ativo;
 
-    public GrupoDTO(Long id, String nome, String descricao, Boolean ativo) {
-        this.id = id;
+    public GrupoDTO(Long key, String nome, String descricao, Boolean ativo) {
+        this.key = key;
         this.nome = nome;
         this.descricao = descricao;
         this.ativo = ativo;
@@ -26,12 +25,12 @@ public class GrupoDTO extends RepresentationModel<GrupoDTO> {
     public GrupoDTO() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getKey() {
+        return key;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setKey(Long key) {
+        this.key = key;
     }
 
     public String getNome() {
