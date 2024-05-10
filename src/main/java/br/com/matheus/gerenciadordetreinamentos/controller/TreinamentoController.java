@@ -4,6 +4,8 @@ import br.com.matheus.gerenciadordetreinamentos.dto.ProfessorDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.ProfessorSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.TreinamentoSaveDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.update.ProfessorUpdateDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.update.TreinamentoUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.TreinamentoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +34,10 @@ public class TreinamentoController {
     @PostMapping
     public ResponseEntity<TreinamentoDTO> save(@Valid TreinamentoSaveDTO data) {
         return ResponseEntity.ok(service.save(data));
+    }
+
+    @PutMapping
+    public ResponseEntity<TreinamentoDTO> update(@Valid TreinamentoUpdateDTO data) {
+        return ResponseEntity.ok(service.update(data));
     }
 }

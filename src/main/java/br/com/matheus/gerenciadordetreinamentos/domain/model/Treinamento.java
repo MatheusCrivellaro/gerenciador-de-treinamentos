@@ -79,6 +79,17 @@ public class Treinamento {
     public Treinamento() {
     }
 
+    public Treinamento(Long id, String nome, String descricao, LocalDate data, LocalTime abertura, LocalTime encerramento, List<Grupo> grupos, Professor professor) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.data = data;
+        this.abertura = abertura;
+        this.encerramento = encerramento;
+        this.grupos = grupos;
+        this.professor = professor;
+    }
+
     public Long getId() {
         return id;
     }

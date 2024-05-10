@@ -1,5 +1,6 @@
 package br.com.matheus.gerenciadordetreinamentos.domain.model;
 
+import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -51,6 +52,16 @@ public class Professor {
         this.dataNascimento = dataNascimento;
         this.dataRegistro = dataRegistro;
         this.ativo = ativo;
+        this.treinamentos = treinamentos;
+    }
+
+
+    public Professor(Long id, String nome, String usuario, String senha, String email, String telefone, List<Treinamento> treinamentos) {
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.email = email;
+        this.telefone = telefone;
         this.treinamentos = treinamentos;
     }
 

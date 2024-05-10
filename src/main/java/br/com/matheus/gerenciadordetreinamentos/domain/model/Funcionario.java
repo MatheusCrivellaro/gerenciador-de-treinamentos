@@ -83,7 +83,14 @@ public class Funcionario {
         this.grupos = grupos;
     }
 
-    public Funcionario() {
+    public Funcionario(Long id, String nome, String email, String usuario, String senha, String telefone, List<Grupo> grupos) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.grupos = grupos;
     }
 
     public Long getId() {

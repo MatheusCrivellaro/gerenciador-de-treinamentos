@@ -44,6 +44,14 @@ public class Grupo {
         this.funcionarios = funcionarios;
     }
 
+    public Grupo(Long id, String nome, String descricao, List<Funcionario> funcionarios, List<Treinamento> treinamentos) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.funcionarios = funcionarios;
+        this.treinamentos = treinamentos;
+    }
+
     public Grupo() {
     }
 

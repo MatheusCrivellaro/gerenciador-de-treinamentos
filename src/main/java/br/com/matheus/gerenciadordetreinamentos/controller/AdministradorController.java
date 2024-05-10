@@ -2,6 +2,7 @@ package br.com.matheus.gerenciadordetreinamentos.controller;
 
 import br.com.matheus.gerenciadordetreinamentos.dto.AdministradorDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.AdministradorSaveDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.update.AdministradorUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.AdministradorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class AdministradorController {
     @PostMapping
     public ResponseEntity<AdministradorDTO> save(@Valid AdministradorSaveDTO data) {
         return ResponseEntity.ok(service.save(data));
+    }
+
+    @PutMapping
+    public ResponseEntity<AdministradorDTO> update(@Valid AdministradorUpdateDTO data) {
+        return ResponseEntity.ok(service.update(data));
     }
 }

@@ -4,6 +4,8 @@ import br.com.matheus.gerenciadordetreinamentos.dto.FuncionarioDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.GrupoDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.FuncionarioSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.GrupoSaveDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.update.FuncionarioUpdateDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.update.GrupoUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.GrupoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,4 +36,8 @@ public class GrupoController {
         return ResponseEntity.ok(service.save(data));
     }
 
+    @PutMapping
+    public ResponseEntity<GrupoDTO> update(@Valid GrupoUpdateDTO data) {
+        return ResponseEntity.ok(service.update(data));
+    }
 }

@@ -3,6 +3,7 @@ package br.com.matheus.gerenciadordetreinamentos.service;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Grupo;
 import br.com.matheus.gerenciadordetreinamentos.dto.GrupoDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.GrupoSaveDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.update.GrupoUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.GrupoMapper;
 import br.com.matheus.gerenciadordetreinamentos.repository.FuncionarioRepository;
@@ -57,10 +58,18 @@ public class GrupoService {
         return buildDTO(repository.save(entity));
     }
 
-    public GrupoDTO update(GrupoDTO data) {
-        if(repository.findByIdAndAtivoTrue(data.getKey()).isEmpty())
+    public GrupoDTO update(GrupoUpdateDTO data) {
+        if(repository.findByIdAndAtivoTrue(data.id()).isEmpty())
             throw new DataNotFoundException("Grupo not found");
-        var entity = GrupoMapper.INSTANCE.toEntity(data);
+        var funcinarios = data.funcionarios()
+                .stream().map(
+                        funcionarioId -> funcionarioRepository.findByIdAndAtivoTrue(funcionarioId).orElseThrow(() -> new DataNotFoundException("Funcionario not found"))
+                ).toList();
+        var treinamentos = data.treinamentos()
+                .stream().map(
+                        treinamentoId -> treinamentoRepository.findByIdAndAtivoTrue(treinamentoId).orElseThrow(() -> new DataNotFoundException("Treinamento not found"))
+                ).toList();
+        var entity = new Grupo(data.id(), data.nome(), data.descricao(), funcinarios, treinamentos);
         return buildDTO(repository.save(entity));
     }
 

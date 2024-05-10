@@ -1,11 +1,13 @@
-package br.com.matheus.gerenciadordetreinamentos.dto.save;
+package br.com.matheus.gerenciadordetreinamentos.dto.update;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-public record TreinamentoSaveDTO(
+public record TreinamentoUpdateDTO(
 
+        Long id,
         String nome,
         String descricao,
         LocalDate data,

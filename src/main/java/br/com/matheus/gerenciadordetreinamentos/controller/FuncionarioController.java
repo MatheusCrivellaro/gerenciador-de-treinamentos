@@ -2,6 +2,7 @@ package br.com.matheus.gerenciadordetreinamentos.controller;
 
 import br.com.matheus.gerenciadordetreinamentos.dto.FuncionarioDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.FuncionarioSaveDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.update.FuncionarioUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.FuncionarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class FuncionarioController {
     @PostMapping
     public ResponseEntity<FuncionarioDTO> save(@Valid FuncionarioSaveDTO data) {
         return ResponseEntity.ok(service.save(data));
+    }
+
+    @PutMapping
+    public ResponseEntity<FuncionarioDTO> update(@Valid FuncionarioUpdateDTO data) {
+        return ResponseEntity.ok(service.update(data));
     }
 }

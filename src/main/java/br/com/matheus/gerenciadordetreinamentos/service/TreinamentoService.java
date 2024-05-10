@@ -3,6 +3,7 @@ package br.com.matheus.gerenciadordetreinamentos.service;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Treinamento;
 import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.TreinamentoSaveDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.update.TreinamentoUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.GrupoMapper;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.TreinamentoMapper;
@@ -33,6 +34,9 @@ public class TreinamentoService {
 
     @Autowired
     private ProfessorRepository professorRepository;
+
+    @Autowired
+    private CodigoTreinamentoService codigoTreinamentoService;
 
     public List<TreinamentoDTO> findAll() {
         var listEntity = repository.findAllByAtivoTrue();
@@ -81,15 +85,18 @@ public class TreinamentoService {
                 grupoId -> GrupoMapper.INSTANCE.toEntity(grupoService.findById(grupoId))
         ).toList();
         var professor = professorRepository.findByIdAndAtivoTrue(data.professor()).orElseThrow(() -> new DataNotFoundException("Professor not found"));
-        var entity = new Treinamento(data.nome(), data.descricao(), data.codigo(), data.data(), data.abertura(), data.encerramento(), LocalDateTime.now(), true, grupos, professor);
+        var entity = new Treinamento(data.nome(), data.descricao(), codigoTreinamentoService.buildCodigo(), data.data(), data.abertura(), data.encerramento(), LocalDateTime.now(), true, grupos, professor);
         return buildDTO(repository.save(entity));
     }
 
 
-    public TreinamentoDTO update(TreinamentoDTO data) {
-        if (repository.findByIdAndAtivoTrue(data.getKey()).isEmpty())
+    public TreinamentoDTO update(TreinamentoUpdateDTO data) {
+        if (repository.findByIdAndAtivoTrue(data.id()).isEmpty())
             throw new DataNotFoundException("Treinamento not found");
-        var entity = TreinamentoMapper.INSTANCE.toEntity(data);
+        var grupos = data.grupos().stream().map(
+                grupoId -> GrupoMapper.INSTANCE.toEntity(grupoService.findById(grupoId))
+        ).toList();
+        var entity = new Treinamento(data.id(), data.nome(), data.descricao(), data.data(), data.abertura(), data.encerramento(), grupos, professorRepository.findByIdAndAtivoTrue(data.id()).orElseThrow(() -> new DataNotFoundException("Professor not found")));
         return buildDTO(repository.save(entity));
     }
 
