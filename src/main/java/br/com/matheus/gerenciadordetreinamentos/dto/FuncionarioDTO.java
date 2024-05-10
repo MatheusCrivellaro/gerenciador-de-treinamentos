@@ -4,9 +4,6 @@ import br.com.matheus.gerenciadordetreinamentos.controller.FuncionarioController
 import br.com.matheus.gerenciadordetreinamentos.domain.enums.Genero;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Grupo;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Presenca;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.OneToMany;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;

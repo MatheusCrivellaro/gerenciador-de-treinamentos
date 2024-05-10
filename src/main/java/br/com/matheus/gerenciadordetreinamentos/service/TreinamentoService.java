@@ -1,19 +1,14 @@
 package br.com.matheus.gerenciadordetreinamentos.service;
 
-import br.com.matheus.gerenciadordetreinamentos.domain.model.Presenca;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Treinamento;
 import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
-import br.com.matheus.gerenciadordetreinamentos.mapeador.FuncionarioMapper;
-import br.com.matheus.gerenciadordetreinamentos.mapeador.PresencaMapper;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.TreinamentoMapper;
-import br.com.matheus.gerenciadordetreinamentos.repository.FuncionarioRepository;
 import br.com.matheus.gerenciadordetreinamentos.repository.PresencaRepository;
 import br.com.matheus.gerenciadordetreinamentos.repository.TreinamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

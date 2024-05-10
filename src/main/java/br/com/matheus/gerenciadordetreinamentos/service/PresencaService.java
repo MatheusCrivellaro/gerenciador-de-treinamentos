@@ -2,8 +2,8 @@ package br.com.matheus.gerenciadordetreinamentos.service;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Presenca;
 import br.com.matheus.gerenciadordetreinamentos.dto.PresencaDTO;
-import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.FuncionarioNaoAutorizado;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
+import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.FuncionarioNaoAutorizado;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.TreinamentoEncerradoException;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.FuncionarioMapper;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.PresencaMapper;

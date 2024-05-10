@@ -3,7 +3,6 @@ package br.com.matheus.gerenciadordetreinamentos.dto;
 import br.com.matheus.gerenciadordetreinamentos.controller.GrupoController;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Funcionario;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Treinamento;
-import jakarta.persistence.ManyToMany;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
