@@ -1,13 +1,14 @@
 package br.com.matheus.gerenciadordetreinamentos.controller;
 
+import br.com.matheus.gerenciadordetreinamentos.dto.ProfessorDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.save.ProfessorSaveDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.save.TreinamentoSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.TreinamentoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,4 +29,8 @@ public class TreinamentoController {
         return ResponseEntity.ok(service.findAll());
     }
 
+    @PostMapping
+    public ResponseEntity<TreinamentoDTO> save(@Valid TreinamentoSaveDTO data) {
+        return ResponseEntity.ok(service.save(data));
+    }
 }

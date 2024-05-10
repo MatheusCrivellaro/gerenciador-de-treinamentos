@@ -2,6 +2,7 @@ package br.com.matheus.gerenciadordetreinamentos.service;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Presenca;
 import br.com.matheus.gerenciadordetreinamentos.dto.PresencaDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.save.PresencaSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.FuncionarioNaoAutorizado;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.TreinamentoEncerradoException;
@@ -82,6 +83,10 @@ public class PresencaService {
     public PresencaDTO save(PresencaDTO data) {
         var entity = PresencaMapper.INSTANCE.toEntity(data);
         return buildDTO(repository.save(entity));
+    }
+
+    public PresencaDTO save(PresencaSaveDTO data) {
+        return confirmPresenca(data.code(), data.funcionario());
     }
 
     public List<PresencaDTO> buildDTO(List<Presenca> listEntity) {
