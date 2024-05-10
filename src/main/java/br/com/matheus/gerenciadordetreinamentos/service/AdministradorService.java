@@ -18,53 +18,49 @@ public class AdministradorService {
 
     public List<AdministradorDTO> findAll() {
         var listEntity = repository.findAllByAtivoTrue();
-        return buildListDTO(listEntity);
+        return buildDTO(listEntity);
     }
 
     public AdministradorDTO findById(Long id) {
         var entity = repository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException("Administrador not found"));
-        var dto = AdministradorMapper.INSTANCE.toDTO(entity);
-        dto.addWithSelfRel();
-        return dto;
+        return buildDTO(entity);
     }
 
     public List<AdministradorDTO> findByNome(String nome) {
         var listEntity = repository.findByNomeContainingAndAtivoTrue(nome);
-        var listDto = AdministradorMapper.INSTANCE.toDTOList(listEntity);
-        listDto.forEach(AdministradorDTO::addWithSelfRel);
-        return listDto;
+        return buildDTO(listEntity);
     }
 
     public List<AdministradorDTO> findByUsuario(String usuario) {
         var listEntity = repository.findByUsuarioContainingAndAtivoTrue(usuario);
-        var listDto = AdministradorMapper.INSTANCE.toDTOList(listEntity);
-        listDto.forEach(AdministradorDTO::addWithSelfRel);
-        return listDto;
+        return buildDTO(listEntity);
     }
 
     public AdministradorDTO save(AdministradorDTO data) {
         var entity = AdministradorMapper.INSTANCE.toEntity(data);
-        var dto = AdministradorMapper.INSTANCE.toDTO(repository.save(entity));
-        dto.addWithSelfRel();
-        return dto;
+        return buildDTO(repository.save(entity));
     }
 
     public AdministradorDTO update(AdministradorDTO data) {
         if (repository.findById(data.getKey()).isEmpty())
             throw new DataNotFoundException("Administrador not found");
         var entity = AdministradorMapper.INSTANCE.toEntity(data);
-        var dto = AdministradorMapper.INSTANCE.toDTO(repository.save(entity));
-        dto.addWithSelfRel();
-        return dto;
+        return buildDTO(repository.save(entity));
     }
 
-    private List<AdministradorDTO> buildListDTO(List<Administrador> listEntity) {
+    public void delete(Long id) {
+        var entity = repository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException("Administrador not found"));
+        entity.setAtivo(false);
+        repository.save(entity);
+    }
+
+    public List<AdministradorDTO> buildDTO(List<Administrador> listEntity) {
         var listDto = AdministradorMapper.INSTANCE.toDTOList(listEntity);
         listDto.forEach(AdministradorDTO::addWithSelfRel);
         return listDto;
     }
 
-    private AdministradorDTO buildDTO(Administrador entity) {
+    public AdministradorDTO buildDTO(Administrador entity) {
         var dto = AdministradorMapper.INSTANCE.toDTO(entity);
         dto.addWithSelfRel();
         return dto;

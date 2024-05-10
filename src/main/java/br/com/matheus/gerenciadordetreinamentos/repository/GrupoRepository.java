@@ -9,5 +9,8 @@ import java.util.Optional;
 public interface GrupoRepository extends JpaRepository<Grupo, Long> {
 
     List<Grupo> findAllByAtivoTrue();
+
+    List<Grupo> findByNomeContainingAndAtivoTrue(String nome);
+
     Optional<Grupo> findByIdAndAtivoTrue(Long id);
 }

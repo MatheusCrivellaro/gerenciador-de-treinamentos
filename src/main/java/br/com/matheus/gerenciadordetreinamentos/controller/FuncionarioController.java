@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/funcionario")
 public class FuncionarioController {
@@ -21,4 +23,8 @@ public class FuncionarioController {
         return ResponseEntity.ok(service.findById(id));
     }
 
+    @GetMapping
+    public ResponseEntity<List<FuncionarioDTO>> findAll() {
+        return ResponseEntity.ok(service.findAll());
+    }
 }

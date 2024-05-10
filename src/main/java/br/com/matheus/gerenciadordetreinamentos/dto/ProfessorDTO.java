@@ -1,9 +1,11 @@
 package br.com.matheus.gerenciadordetreinamentos.dto;
 
 import br.com.matheus.gerenciadordetreinamentos.controller.ProfessorController;
+import br.com.matheus.gerenciadordetreinamentos.domain.model.Treinamento;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -20,7 +22,9 @@ public class ProfessorDTO extends RepresentationModel<ProfessorDTO> {
     private LocalDateTime dataCadastro;
     private Boolean ativo;
 
-    public ProfessorDTO(Long key, String nome, String usuario, String senha, String email, String telefone, LocalDateTime dataNascimento, LocalDateTime dataCadastro, Boolean ativo) {
+    private List<Treinamento> treinamentos;
+
+    public ProfessorDTO(Long key, String nome, String usuario, String senha, String email, String telefone, LocalDateTime dataNascimento, LocalDateTime dataCadastro, Boolean ativo, List<Treinamento> treinamentos) {
         this.key = key;
         this.nome = nome;
         this.usuario = usuario;
@@ -30,17 +34,7 @@ public class ProfessorDTO extends RepresentationModel<ProfessorDTO> {
         this.dataNascimento = dataNascimento;
         this.dataCadastro = dataCadastro;
         this.ativo = ativo;
-    }
-
-    public ProfessorDTO(String nome, String usuario, String senha, String email, String telefone, LocalDateTime dataNascimento, LocalDateTime dataCadastro, Boolean ativo) {
-        this.nome = nome;
-        this.usuario = usuario;
-        this.senha = senha;
-        this.email = email;
-        this.telefone = telefone;
-        this.dataNascimento = dataNascimento;
-        this.dataCadastro = dataCadastro;
-        this.ativo = ativo;
+        this.treinamentos = treinamentos;
     }
 
     public ProfessorDTO() {
@@ -120,5 +114,13 @@ public class ProfessorDTO extends RepresentationModel<ProfessorDTO> {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public List<Treinamento> getTreinamentos() {
+        return treinamentos;
+    }
+
+    public void setTreinamentos(List<Treinamento> treinamentos) {
+        this.treinamentos = treinamentos;
     }
 }

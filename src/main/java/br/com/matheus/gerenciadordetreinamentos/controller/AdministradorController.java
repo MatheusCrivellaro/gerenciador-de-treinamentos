@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/adm")
 public class AdministradorController {
@@ -19,6 +21,11 @@ public class AdministradorController {
     @GetMapping("/{id}")
     public ResponseEntity<AdministradorDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AdministradorDTO>> findAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
 }

@@ -14,5 +14,11 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 
     List<Funcionario> findByUsuarioContainingAndAtivoTrue(String usuario);
 
+    List<Funcionario> findByEmailContainingAndAtivoTrue(String email);
+
     Optional<Funcionario> findByIdAndAtivoTrue(Long id);
+
+    Optional<Funcionario> findByCpfAndAtivoTrue(String cpf);
+
+    Optional<Funcionario> findByTelefoneAndAtivoTrue(String telefone);
 }

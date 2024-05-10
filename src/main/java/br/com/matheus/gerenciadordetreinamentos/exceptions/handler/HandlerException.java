@@ -2,6 +2,8 @@ package br.com.matheus.gerenciadordetreinamentos.exceptions.handler;
 
 import br.com.matheus.gerenciadordetreinamentos.exceptions.ExceptionResponse;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
+import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.FuncionarioNaoAutorizado;
+import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.TreinamentoEncerradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,6 +32,22 @@ public class HandlerException extends ResponseEntityExceptionHandler {
         ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TreinamentoEncerradoException.class)
+    public final ResponseEntity<ExceptionResponse> TreinamentoEncerradoExceptions(Exception ex, WebRequest request) {
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FuncionarioNaoAutorizado.class)
+    public final ResponseEntity<ExceptionResponse> FuncionarioNaoAutorizados(Exception ex, WebRequest request) {
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
 }

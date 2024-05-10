@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/grupo")
 public class GrupoController {
@@ -19,6 +21,11 @@ public class GrupoController {
     @GetMapping("/{id}")
     public ResponseEntity<GrupoDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<GrupoDTO>> findAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
 }

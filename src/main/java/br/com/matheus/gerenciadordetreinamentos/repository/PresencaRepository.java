@@ -7,6 +7,4 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PresencaRepository extends JpaRepository<Presenca, Long> {
-    List<Presenca> findAllByAtivoTrue();
-    Optional<Presenca> findByIdAndAtivoTrue(Long id);
 }

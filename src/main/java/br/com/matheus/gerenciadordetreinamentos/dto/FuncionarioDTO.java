@@ -2,10 +2,16 @@ package br.com.matheus.gerenciadordetreinamentos.dto;
 
 import br.com.matheus.gerenciadordetreinamentos.controller.FuncionarioController;
 import br.com.matheus.gerenciadordetreinamentos.domain.enums.Genero;
+import br.com.matheus.gerenciadordetreinamentos.domain.model.Grupo;
+import br.com.matheus.gerenciadordetreinamentos.domain.model.Presenca;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToMany;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -24,7 +30,10 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> {
     private LocalDateTime dataRegistro;
     private boolean ativo;
 
-    public FuncionarioDTO(Long key, String nome, String email, String usuario, String senha, String telefone, String cpf, Genero genero, LocalDate dataNascimento, LocalDateTime dataRegistro, boolean ativo) {
+    private List<Grupo> grupos;
+    private List<Presenca> presencas;
+
+    public FuncionarioDTO(Long key, String nome, String email, String usuario, String senha, String telefone, String cpf, Genero genero, LocalDate dataNascimento, LocalDateTime dataRegistro, boolean ativo, List<Grupo> grupos, List<Presenca> presencas) {
         this.key = key;
         this.nome = nome;
         this.email = email;
@@ -36,19 +45,8 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> {
         this.dataNascimento = dataNascimento;
         this.dataRegistro = dataRegistro;
         this.ativo = ativo;
-    }
-
-    public FuncionarioDTO(String nome, String email, String usuario, String senha, String telefone, String cpf, Genero genero, LocalDate dataNascimento, LocalDateTime dataRegistro, boolean ativo) {
-        this.nome = nome;
-        this.email = email;
-        this.usuario = usuario;
-        this.senha = senha;
-        this.telefone = telefone;
-        this.cpf = cpf;
-        this.genero = genero;
-        this.dataNascimento = dataNascimento;
-        this.dataRegistro = dataRegistro;
-        this.ativo = ativo;
+        this.grupos = grupos;
+        this.presencas = presencas;
     }
 
     public FuncionarioDTO() {
@@ -144,5 +142,21 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public List<Grupo> getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(List<Grupo> grupos) {
+        this.grupos = grupos;
+    }
+
+    public List<Presenca> getPresencas() {
+        return presencas;
+    }
+
+    public void setPresencas(List<Presenca> presencas) {
+        this.presencas = presencas;
     }
 }
