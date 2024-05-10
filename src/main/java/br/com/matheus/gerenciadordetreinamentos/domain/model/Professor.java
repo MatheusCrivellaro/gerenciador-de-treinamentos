@@ -54,6 +54,17 @@ public class Professor {
         this.treinamentos = treinamentos;
     }
 
+    public Professor(String nome, String usuario, String senha, String email, String telefone, LocalDate dataNascimento, LocalDateTime dataRegistro, Boolean ativo) {
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.email = email;
+        this.telefone = telefone;
+        this.dataNascimento = dataNascimento;
+        this.dataRegistro = dataRegistro;
+        this.ativo = ativo;
+    }
+
     public Professor() {
     }
 

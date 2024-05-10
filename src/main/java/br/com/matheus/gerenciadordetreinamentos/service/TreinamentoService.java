@@ -2,13 +2,17 @@ package br.com.matheus.gerenciadordetreinamentos.service;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Treinamento;
 import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.save.TreinamentoSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
+import br.com.matheus.gerenciadordetreinamentos.mapeador.GrupoMapper;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.TreinamentoMapper;
 import br.com.matheus.gerenciadordetreinamentos.repository.PresencaRepository;
+import br.com.matheus.gerenciadordetreinamentos.repository.ProfessorRepository;
 import br.com.matheus.gerenciadordetreinamentos.repository.TreinamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +30,9 @@ public class TreinamentoService {
 
     @Autowired
     private PresencaRepository presencaRepository;
+
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     public List<TreinamentoDTO> findAll() {
         var listEntity = repository.findAllByAtivoTrue();
@@ -68,6 +75,16 @@ public class TreinamentoService {
         var entity = TreinamentoMapper.INSTANCE.toEntity(data);
         return buildDTO(repository.save(entity));
     }
+
+    public TreinamentoDTO save(TreinamentoSaveDTO data) {
+        var grupos = data.grupos().stream().map(
+                grupoId -> GrupoMapper.INSTANCE.toEntity(grupoService.findById(grupoId))
+        ).toList();
+        var professor = professorRepository.findByIdAndAtivoTrue(data.professor()).orElseThrow(() -> new DataNotFoundException("Professor not found"));
+        var entity = new Treinamento(data.nome(), data.descricao(), data.codigo(), data.data(), data.abertura(), data.encerramento(), LocalDateTime.now(), true, grupos, professor);
+        return buildDTO(repository.save(entity));
+    }
+
 
     public TreinamentoDTO update(TreinamentoDTO data) {
         if (repository.findByIdAndAtivoTrue(data.getKey()).isEmpty())

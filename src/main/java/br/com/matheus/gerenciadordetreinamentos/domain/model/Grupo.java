@@ -37,6 +37,13 @@ public class Grupo {
         this.treinamentos = treinamentos;
     }
 
+    public Grupo(String nome, String descricao, Boolean ativo, List<Funcionario> funcionarios) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.ativo = ativo;
+        this.funcionarios = funcionarios;
+    }
+
     public Grupo() {
     }
 

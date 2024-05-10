@@ -69,6 +69,20 @@ public class Funcionario {
         this.presencas = presencas;
     }
 
+    public Funcionario(String nome, String email, String usuario, String senha, String telefone, String cpf, Genero genero, LocalDate dataNascimento, LocalDateTime dataRegistro, boolean ativo, List<Grupo> grupos) {
+        this.nome = nome;
+        this.email = email;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.cpf = cpf;
+        this.genero = genero;
+        this.dataNascimento = dataNascimento;
+        this.dataRegistro = dataRegistro;
+        this.ativo = ativo;
+        this.grupos = grupos;
+    }
+
     public Funcionario() {
     }
 

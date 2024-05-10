@@ -62,6 +62,20 @@ public class Treinamento {
         this.presencas = presencas;
     }
 
+    public Treinamento(String nome, String descricao, String codigo, LocalDate data, LocalTime abertura, LocalTime encerramento, LocalDateTime dataCadastro, Boolean ativo, List<Grupo> grupos, Professor professor) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.codigo = codigo;
+        this.data = data;
+        this.abertura = abertura;
+        this.encerramento = encerramento;
+        this.dataCadastro = dataCadastro;
+        this.ativo = ativo;
+        this.grupos = grupos;
+        this.professor = professor;
+    }
+
+
     public Treinamento() {
     }
 

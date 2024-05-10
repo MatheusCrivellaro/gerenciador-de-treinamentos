@@ -2,6 +2,7 @@ package br.com.matheus.gerenciadordetreinamentos.service;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Administrador;
 import br.com.matheus.gerenciadordetreinamentos.dto.AdministradorDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.save.AdministradorSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.AdministradorMapper;
 import br.com.matheus.gerenciadordetreinamentos.repository.AdministradorRepository;
@@ -36,8 +37,8 @@ public class AdministradorService {
         return buildDTO(listEntity);
     }
 
-    public AdministradorDTO save(AdministradorDTO data) {
-        var entity = AdministradorMapper.INSTANCE.toEntity(data);
+    public AdministradorDTO save(AdministradorSaveDTO data) {
+        var entity = new Administrador(data.nome(), data.usuario(), data.senha(), true);
         return buildDTO(repository.save(entity));
     }
 

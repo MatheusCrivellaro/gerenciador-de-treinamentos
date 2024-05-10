@@ -2,12 +2,14 @@ package br.com.matheus.gerenciadordetreinamentos.service;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Professor;
 import br.com.matheus.gerenciadordetreinamentos.dto.ProfessorDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.save.ProfessorSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.ProfessorMapper;
 import br.com.matheus.gerenciadordetreinamentos.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -53,8 +55,8 @@ public class ProfessorService {
         return buildDTO(treinamentoService.findById(id).getProfessor());
     }
 
-    public ProfessorDTO save(ProfessorDTO data) {
-        var entity = ProfessorMapper.INSTANCE.toEntity(data);
+    public ProfessorDTO save(ProfessorSaveDTO data) {
+        var entity = new Professor(data.nome(), data.usuario(), data.senha(), data.email(), data.telefone(), data.dataNascimento(), LocalDateTime.now(), true);
         return buildDTO(repository.save(entity));
     }
 

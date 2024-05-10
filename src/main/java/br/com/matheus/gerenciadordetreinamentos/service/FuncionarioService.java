@@ -2,14 +2,18 @@ package br.com.matheus.gerenciadordetreinamentos.service;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Funcionario;
 import br.com.matheus.gerenciadordetreinamentos.dto.FuncionarioDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.save.FuncionarioSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.FuncionarioMapper;
+import br.com.matheus.gerenciadordetreinamentos.mapeador.GrupoMapper;
 import br.com.matheus.gerenciadordetreinamentos.repository.FuncionarioRepository;
 import br.com.matheus.gerenciadordetreinamentos.repository.PresencaRepository;
 import br.com.matheus.gerenciadordetreinamentos.repository.TreinamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,8 +83,9 @@ public class FuncionarioService {
         return buildDTO(presencaRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Presença not found")).getFuncionario());
     }
 
-    public FuncionarioDTO save(FuncionarioDTO data) {
-        var entity = FuncionarioMapper.INSTANCE.toEntity(data);
+    public FuncionarioDTO save(FuncionarioSaveDTO data) {
+        var grupos = data.grupos().stream().map(grupoId -> GrupoMapper.INSTANCE.toEntity(grupoService.findById(grupoId))).toList();
+        var entity = new Funcionario(data.nome(), data.email(), data.usuario(), data.senha(), data.telefone(), data.cpf(), data.genero(), data.dataNascimento(), LocalDateTime.now(), true, grupos);
         return buildDTO(repository.save(entity));
     }
 

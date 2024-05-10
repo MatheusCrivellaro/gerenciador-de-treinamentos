@@ -2,6 +2,7 @@ package br.com.matheus.gerenciadordetreinamentos.service;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Grupo;
 import br.com.matheus.gerenciadordetreinamentos.dto.GrupoDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.save.GrupoSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.GrupoMapper;
 import br.com.matheus.gerenciadordetreinamentos.repository.FuncionarioRepository;
@@ -47,8 +48,12 @@ public class GrupoService {
         return buildDTO(treinamentoRepository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException("Treinamento not found")).getGrupos());
     }
 
-    public GrupoDTO save(GrupoDTO data) {
-        var entity = GrupoMapper.INSTANCE.toEntity(data);
+    public GrupoDTO save(GrupoSaveDTO data) {
+        var funcinarios = data.funcionarios()
+                .stream().map(
+                        funcionarioId -> funcionarioRepository.findByIdAndAtivoTrue(funcionarioId).orElseThrow(() -> new DataNotFoundException("Funcionario not found"))
+                ).toList();
+        var entity = new Grupo(data.nome(), data.descricao(), true, funcinarios);
         return buildDTO(repository.save(entity));
     }
 

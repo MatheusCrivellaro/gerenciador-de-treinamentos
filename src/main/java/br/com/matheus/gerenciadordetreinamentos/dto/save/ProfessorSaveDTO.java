@@ -1,5 +1,6 @@
 package br.com.matheus.gerenciadordetreinamentos.dto.save;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record ProfessorSaveDTO(
@@ -9,6 +10,6 @@ public record ProfessorSaveDTO(
         String senha,
         String email,
         String telefone,
-        LocalDateTime dataNascimento
+        LocalDate dataNascimento
 
 ) {}
