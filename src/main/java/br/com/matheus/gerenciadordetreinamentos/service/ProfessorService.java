@@ -2,20 +2,17 @@ package br.com.matheus.gerenciadordetreinamentos.service;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Professor;
 import br.com.matheus.gerenciadordetreinamentos.dto.ProfessorDTO;
-import br.com.matheus.gerenciadordetreinamentos.dto.save.ProfessorSaveDTO;
-import br.com.matheus.gerenciadordetreinamentos.dto.update.ProfessorUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
-import br.com.matheus.gerenciadordetreinamentos.mapeador.ProfessorMapper;
-import br.com.matheus.gerenciadordetreinamentos.mapeador.TreinamentoMapper;
 import br.com.matheus.gerenciadordetreinamentos.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class ProfessorService {
+
+    private final String notFoundText = "Professor not found";
 
     @Autowired
     private ProfessorRepository repository;
@@ -25,69 +22,48 @@ public class ProfessorService {
 
     public List<ProfessorDTO> findAll() {
         var listEntity = repository.findAllByAtivoTrue();
-        return buildDTO(listEntity);
+        return listEntity.stream().map(Professor::buildDTO).toList();
     }
 
     public ProfessorDTO findById(Long id) {
-        var entity = repository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException("Grupo not found"));
-        return buildDTO(entity);
+        var entity = repository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException(notFoundText));
+        return entity.buildDTO();
     }
 
     public List<ProfessorDTO> findByNome(String nome) {
         var listEntity = repository.findByNomeContainingAndAtivoTrue(nome);
-        return buildDTO(listEntity);
+        return listEntity.stream().map(Professor::buildDTO).toList();
     }
 
     public List<ProfessorDTO> findByUsuario(String usuario) {
         var listEntity = repository.findByUsuarioContainingAndAtivoTrue(usuario);
-        return buildDTO(listEntity);
+        return listEntity.stream().map(Professor::buildDTO).toList();
     }
 
     public List<ProfessorDTO> findByEmail(String email) {
         var listEntity = repository.findByEmailContainingAndAtivoTrue(email);
-        return buildDTO(listEntity);
+        return listEntity.stream().map(Professor::buildDTO).toList();
     }
 
     public ProfessorDTO findByTelefone(String telefone) {
-        var entity = repository.findByTelefoneAndAtivoTrue(telefone).orElseThrow(() -> new DataNotFoundException("Telefone not found"));
-        return buildDTO(entity);
+        var entity = repository.findByTelefoneAndAtivoTrue(telefone).orElseThrow(() -> new DataNotFoundException(notFoundText));
+        return entity.buildDTO();
     }
 
-    public ProfessorDTO findByTreinamento(Long id) {
-        return buildDTO(treinamentoService.findById(id).getProfessor());
-    }
-
-    public ProfessorDTO save(ProfessorSaveDTO data) {
-        var entity = new Professor(data.nome(), data.usuario(), data.senha(), data.email(), data.telefone(), data.dataNascimento(), LocalDateTime.now(), true);
-        return buildDTO(repository.save(entity));
-    }
-
-    public ProfessorDTO update(ProfessorUpdateDTO data) {
-        if (repository.findByIdAndAtivoTrue(data.id()).isEmpty())
-            throw new DataNotFoundException("Professor not found");
-        var treinamentos = data.treinamentos()
-                .stream().map(
-                        treinamentosId -> TreinamentoMapper.INSTANCE.toEntity(treinamentoService.findById(treinamentosId))
-                ).toList();
-        var entity = new Professor(data.id(), data.nome(), data.usuario(), data.senha(), data.email(), data.telefone(), treinamentos);
-        return buildDTO(repository.save(entity));
-    }
+//    public ProfessorDTO save(ProfessorSaveDTO data) {
+//    }
+//
+//    public ProfessorDTO update(ProfessorUpdateDTO data) {
+//        if (repository.findByIdAndAtivoTrue(data.id()).isEmpty())
+//            throw new DataNotFoundException("Professor not found");
+//    }
 
     public void delete(Long id) {
-        var entity = repository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException("Grupo not found"));
+        var entity = repository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException(notFoundText));
+        entity.getTreinamentos().forEach(
+                treinamento -> treinamentoService.delete(treinamento.getId())
+        );
         entity.setAtivo(false);
         repository.save(entity);
-    }
-
-    public List<ProfessorDTO> buildDTO(List<Professor> listEntity) {
-        var listDto = ProfessorMapper.INSTANCE.toDTOList(listEntity);
-        listDto.forEach(ProfessorDTO::addWithSelfRel);
-        return listDto;
-    }
-
-    public ProfessorDTO buildDTO(Professor entity) {
-        var dto = ProfessorMapper.INSTANCE.toDTO(entity);
-        dto.addWithSelfRel();
-        return dto;
     }
 }

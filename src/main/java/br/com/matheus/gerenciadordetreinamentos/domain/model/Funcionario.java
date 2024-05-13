@@ -1,6 +1,8 @@
 package br.com.matheus.gerenciadordetreinamentos.domain.model;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.enums.Genero;
+import br.com.matheus.gerenciadordetreinamentos.dto.FuncionarioDTO;
+import br.com.matheus.gerenciadordetreinamentos.mapeador.mapStruct.FuncionarioMapper;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -91,6 +93,15 @@ public class Funcionario {
         this.senha = senha;
         this.telefone = telefone;
         this.grupos = grupos;
+    }
+
+    public Funcionario() {
+    }
+
+    public FuncionarioDTO buildDTO() {
+        var dto = FuncionarioMapper.INSTANCE.toDTO(this);
+        dto.addWithSelfRel();
+        return dto;
     }
 
     public Long getId() {

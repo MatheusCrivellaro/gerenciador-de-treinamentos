@@ -1,5 +1,7 @@
 package br.com.matheus.gerenciadordetreinamentos.domain.model;
 
+import br.com.matheus.gerenciadordetreinamentos.dto.GrupoDTO;
+import br.com.matheus.gerenciadordetreinamentos.mapeador.mapStruct.GrupoMapper;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -53,6 +55,12 @@ public class Grupo {
     }
 
     public Grupo() {
+    }
+
+    public GrupoDTO buildDTO() {
+        var dto = GrupoMapper.INSTANCE.toDTO(this);
+        dto.addWithSelfRel();
+        return dto;
     }
 
     public Long getId() {

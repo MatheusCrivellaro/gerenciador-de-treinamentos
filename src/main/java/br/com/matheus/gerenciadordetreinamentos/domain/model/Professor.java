@@ -1,6 +1,7 @@
 package br.com.matheus.gerenciadordetreinamentos.domain.model;
 
-import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.ProfessorDTO;
+import br.com.matheus.gerenciadordetreinamentos.mapeador.mapStruct.ProfessorMapper;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -43,40 +44,13 @@ public class Professor {
         this.treinamentos = treinamentos;
     }
 
-    public Professor(String nome, String usuario, String senha, String email, String telefone, LocalDate dataNascimento, LocalDateTime dataRegistro, Boolean ativo, List<Treinamento> treinamentos) {
-        this.nome = nome;
-        this.usuario = usuario;
-        this.senha = senha;
-        this.email = email;
-        this.telefone = telefone;
-        this.dataNascimento = dataNascimento;
-        this.dataRegistro = dataRegistro;
-        this.ativo = ativo;
-        this.treinamentos = treinamentos;
-    }
-
-
-    public Professor(Long id, String nome, String usuario, String senha, String email, String telefone, List<Treinamento> treinamentos) {
-        this.nome = nome;
-        this.usuario = usuario;
-        this.senha = senha;
-        this.email = email;
-        this.telefone = telefone;
-        this.treinamentos = treinamentos;
-    }
-
-    public Professor(String nome, String usuario, String senha, String email, String telefone, LocalDate dataNascimento, LocalDateTime dataRegistro, Boolean ativo) {
-        this.nome = nome;
-        this.usuario = usuario;
-        this.senha = senha;
-        this.email = email;
-        this.telefone = telefone;
-        this.dataNascimento = dataNascimento;
-        this.dataRegistro = dataRegistro;
-        this.ativo = ativo;
-    }
-
     public Professor() {
+    }
+
+    public ProfessorDTO buildDTO() {
+        var dto = ProfessorMapper.INSTANCE.toDTO(this);
+        dto.addWithSelfRel();
+        return dto;
     }
 
     public Long getId() {

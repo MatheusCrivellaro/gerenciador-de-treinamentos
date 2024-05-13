@@ -1,8 +1,5 @@
 package br.com.matheus.gerenciadordetreinamentos.dto.update;
 
-import br.com.matheus.gerenciadordetreinamentos.domain.enums.Genero;
-
-import java.time.LocalDate;
 import java.util.List;
 
 public record FuncionarioUpdateDTO(

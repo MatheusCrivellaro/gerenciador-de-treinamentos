@@ -5,117 +5,53 @@ import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.TreinamentoSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.update.TreinamentoUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
-import br.com.matheus.gerenciadordetreinamentos.mapeador.GrupoMapper;
-import br.com.matheus.gerenciadordetreinamentos.mapeador.TreinamentoMapper;
-import br.com.matheus.gerenciadordetreinamentos.repository.PresencaRepository;
-import br.com.matheus.gerenciadordetreinamentos.repository.ProfessorRepository;
 import br.com.matheus.gerenciadordetreinamentos.repository.TreinamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class TreinamentoService {
 
+    private final String notFoundText = "Treinamento not found";
+
     @Autowired
     private TreinamentoRepository repository;
 
-    @Autowired
-    private FuncionarioService funcionarioService;
-
-    @Autowired
-    private GrupoService grupoService;
-
-    @Autowired
-    private PresencaRepository presencaRepository;
-
-    @Autowired
-    private ProfessorRepository professorRepository;
-
-    @Autowired
-    private CodigoTreinamentoService codigoTreinamentoService;
-
     public List<TreinamentoDTO> findAll() {
         var listEntity = repository.findAllByAtivoTrue();
-        return buildDTO(listEntity);
+        return listEntity.stream().map(Treinamento::buildDTO).toList();
     }
 
     public TreinamentoDTO findById(Long id) {
-        var entity = repository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException("Treinamento not found"));
-        return buildDTO(entity);
+        var entity = repository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException(notFoundText));
+        return entity.buildDTO();
     }
 
     public List<TreinamentoDTO> findByNome(String nome) {
         var listEntity = repository.findByNomeContainingAndAtivoTrue(nome);
-        return buildDTO(listEntity);
+        return listEntity.stream().map(Treinamento::buildDTO).toList();
     }
 
     public TreinamentoDTO findByCodigo(String codigo) {
-        var entity = repository.findByCodigoAndAtivoTrue(codigo).orElseThrow(() -> new DataNotFoundException("Treinamento not found"));
-        return buildDTO(entity);
-    }
-
-    public List<TreinamentoDTO> findByFuncionario(Long id) {
-        List<Treinamento> list = new ArrayList<>();
-        funcionarioService.findById(id)
-                .getGrupos().forEach(
-                    grupo -> list.addAll(grupo.getTreinamentos())
-                );
-        return buildDTO(list);
-    }
-
-    public TreinamentoDTO findByPresenca(Long id) {
-        return buildDTO(presencaRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Presença not found")).getTreinamento());
-    }
-
-    public List<TreinamentoDTO> findByGrupo(Long id) {
-        return buildDTO(grupoService.findById(id).getTreinamentos());
-    }
-
-    public TreinamentoDTO save(TreinamentoDTO data) {
-        var entity = TreinamentoMapper.INSTANCE.toEntity(data);
-        return buildDTO(repository.save(entity));
+        var entity = repository.findByCodigoAndAtivoTrue(codigo).orElseThrow(() -> new DataNotFoundException(notFoundText));
+        return entity.buildDTO();
     }
 
     public TreinamentoDTO save(TreinamentoSaveDTO data) {
-        var grupos = data.grupos().stream().map(
-                grupoId -> GrupoMapper.INSTANCE.toEntity(grupoService.findById(grupoId))
-        ).toList();
-        var professor = professorRepository.findByIdAndAtivoTrue(data.professor()).orElseThrow(() -> new DataNotFoundException("Professor not found"));
-        var entity = new Treinamento(data.nome(), data.descricao(), codigoTreinamentoService.buildCodigo(), data.data(), data.abertura(), data.encerramento(), LocalDateTime.now(), true, grupos, professor);
-        return buildDTO(repository.save(entity));
+        return null;
     }
-
 
     public TreinamentoDTO update(TreinamentoUpdateDTO data) {
         if (repository.findByIdAndAtivoTrue(data.id()).isEmpty())
-            throw new DataNotFoundException("Treinamento not found");
-        var grupos = data.grupos().stream().map(
-                grupoId -> GrupoMapper.INSTANCE.toEntity(grupoService.findById(grupoId))
-        ).toList();
-        var entity = new Treinamento(data.id(), data.nome(), data.descricao(), data.data(), data.abertura(), data.encerramento(), grupos, professorRepository.findByIdAndAtivoTrue(data.id()).orElseThrow(() -> new DataNotFoundException("Professor not found")));
-        return buildDTO(repository.save(entity));
+            throw new DataNotFoundException(notFoundText);
+        return null;
     }
 
     public void delete(Long id) {
-        var entity = repository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException("Treinamento not found"));
+        var entity = repository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException(notFoundText));
         entity.setAtivo(false);
         repository.save(entity);
     }
-
-    public List<TreinamentoDTO> buildDTO(List<Treinamento> listEntity) {
-        var listDto = TreinamentoMapper.INSTANCE.toDTOList(listEntity);
-        listDto.forEach(TreinamentoDTO::addWithSelfRel);
-        return listDto;
-    }
-
-    public TreinamentoDTO buildDTO(Treinamento entity) {
-        var dto = TreinamentoMapper.INSTANCE.toDTO(entity);
-        dto.addWithSelfRel();
-        return dto;
-    }
-
 }

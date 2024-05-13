@@ -1,10 +1,7 @@
 package br.com.matheus.gerenciadordetreinamentos.controller;
 
-import br.com.matheus.gerenciadordetreinamentos.dto.FuncionarioDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.GrupoDTO;
-import br.com.matheus.gerenciadordetreinamentos.dto.save.FuncionarioSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.GrupoSaveDTO;
-import br.com.matheus.gerenciadordetreinamentos.dto.update.FuncionarioUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.update.GrupoUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.GrupoService;
 import jakarta.validation.Valid;
@@ -39,5 +36,11 @@ public class GrupoController {
     @PutMapping
     public ResponseEntity<GrupoDTO> update(@Valid GrupoUpdateDTO data) {
         return ResponseEntity.ok(service.update(data));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

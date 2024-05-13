@@ -22,18 +22,11 @@ public class AdministradorDTO extends RepresentationModel<AdministradorDTO> {
         this.ativo = ativo;
     }
 
-    public AdministradorDTO(String nome, String usuario, String senha, Boolean ativo) {
-        this.nome = nome;
-        this.usuario = usuario;
-        this.senha = senha;
-        this.ativo = ativo;
+    public AdministradorDTO() {
     }
 
     public void addWithSelfRel() {
         this.add(linkTo(methodOn(AdministradorController.class).findById(this.getKey())).withSelfRel());
-    }
-
-    public AdministradorDTO() {
     }
 
     public Long getKey() {

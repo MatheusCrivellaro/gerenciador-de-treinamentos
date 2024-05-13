@@ -1,5 +1,7 @@
 package br.com.matheus.gerenciadordetreinamentos.domain.model;
 
+import br.com.matheus.gerenciadordetreinamentos.dto.PresencaDTO;
+import br.com.matheus.gerenciadordetreinamentos.mapeador.mapStruct.PresencaMapper;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -37,6 +39,12 @@ public class Presenca {
     }
 
     public Presenca() {
+    }
+
+    public PresencaDTO buildDTO() {
+        var dto = PresencaMapper.INSTANCE.toDTO(this);
+        dto.addWithSelfRel();
+        return dto;
     }
 
     public Long getId() {

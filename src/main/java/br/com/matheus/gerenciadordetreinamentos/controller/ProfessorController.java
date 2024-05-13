@@ -1,14 +1,7 @@
 package br.com.matheus.gerenciadordetreinamentos.controller;
 
-import br.com.matheus.gerenciadordetreinamentos.dto.GrupoDTO;
-import br.com.matheus.gerenciadordetreinamentos.dto.PresencaDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.ProfessorDTO;
-import br.com.matheus.gerenciadordetreinamentos.dto.save.PresencaSaveDTO;
-import br.com.matheus.gerenciadordetreinamentos.dto.save.ProfessorSaveDTO;
-import br.com.matheus.gerenciadordetreinamentos.dto.update.GrupoUpdateDTO;
-import br.com.matheus.gerenciadordetreinamentos.dto.update.ProfessorUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.ProfessorService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,13 +25,19 @@ public class ProfessorController  {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @PostMapping
-    public ResponseEntity<ProfessorDTO> save(@Valid ProfessorSaveDTO data) {
-        return ResponseEntity.ok(service.save(data));
-    }
-    @PutMapping
-    public ResponseEntity<ProfessorDTO> update(@Valid ProfessorUpdateDTO data) {
-        return ResponseEntity.ok(service.update(data));
+//    @PostMapping
+//    public ResponseEntity<ProfessorDTO> save(@Valid ProfessorSaveDTO data) {
+//        return ResponseEntity.ok(service.save(data));
+//    }
+//    @PutMapping
+//    public ResponseEntity<ProfessorDTO> update(@Valid ProfessorUpdateDTO data) {
+//        return ResponseEntity.ok(service.update(data));
+//    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.ok().build();
     }
 
 }

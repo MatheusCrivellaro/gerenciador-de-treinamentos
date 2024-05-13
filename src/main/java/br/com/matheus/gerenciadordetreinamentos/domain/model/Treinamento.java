@@ -1,5 +1,7 @@
 package br.com.matheus.gerenciadordetreinamentos.domain.model;
 
+import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
+import br.com.matheus.gerenciadordetreinamentos.mapeador.mapStruct.TreinamentoMapper;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -88,6 +90,12 @@ public class Treinamento {
         this.encerramento = encerramento;
         this.grupos = grupos;
         this.professor = professor;
+    }
+
+    public TreinamentoDTO buildDTO() {
+        var dto = TreinamentoMapper.INSTANCE.toDTO(this);
+        dto.addWithSelfRel();
+        return dto;
     }
 
     public Long getId() {

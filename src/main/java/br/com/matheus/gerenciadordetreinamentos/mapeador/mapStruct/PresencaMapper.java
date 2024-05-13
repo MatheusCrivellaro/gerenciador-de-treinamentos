@@ -1,4 +1,4 @@
-package br.com.matheus.gerenciadordetreinamentos.mapeador;
+package br.com.matheus.gerenciadordetreinamentos.mapeador.mapStruct;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Presenca;
 import br.com.matheus.gerenciadordetreinamentos.dto.PresencaDTO;

@@ -1,4 +1,4 @@
-package br.com.matheus.gerenciadordetreinamentos.mapeador;
+package br.com.matheus.gerenciadordetreinamentos.mapeador.mapStruct;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Funcionario;
 import br.com.matheus.gerenciadordetreinamentos.dto.FuncionarioDTO;
@@ -8,7 +8,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface FuncionarioMapper {
 
     FuncionarioMapper INSTANCE = Mappers.getMapper( FuncionarioMapper.class );

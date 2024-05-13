@@ -1,5 +1,7 @@
 package br.com.matheus.gerenciadordetreinamentos.domain.model;
 
+import br.com.matheus.gerenciadordetreinamentos.dto.AdministradorDTO;
+import br.com.matheus.gerenciadordetreinamentos.mapeador.mapStruct.AdministradorMapper;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,14 +23,13 @@ public class Administrador {
         this.ativo = ativo;
     }
 
-    public Administrador(String nome, String usuario, String senha, Boolean ativo) {
-        this.nome = nome;
-        this.usuario = usuario;
-        this.senha = senha;
-        this.ativo = ativo;
+    public Administrador() {
     }
 
-    public Administrador() {
+    public AdministradorDTO buildDTO() {
+        var dto = AdministradorMapper.INSTANCE.toDTO(this);
+        dto.addWithSelfRel();
+        return dto;
     }
 
     public Long getId() {
@@ -69,16 +70,5 @@ public class Administrador {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
-    }
-
-    @Override
-    public String toString() {
-        return "Administrador{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", usuario='" + usuario + '\'' +
-                ", senha='" + senha + '\'' +
-                ", ativo=" + ativo +
-                '}';
     }
 }

@@ -1,6 +1,5 @@
 package br.com.matheus.gerenciadordetreinamentos.dto.update;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public record ProfessorUpdateDTO(

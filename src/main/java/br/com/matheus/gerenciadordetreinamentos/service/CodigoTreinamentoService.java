@@ -13,8 +13,7 @@ public class CodigoTreinamentoService {
 
     public String buildCodigo() {
         String code;
-        do
-            code = RandomStringUtils.randomAlphanumeric(9);
+        do code = RandomStringUtils.randomAlphanumeric(9);
         while (treinamentoRepository.findByCodigoAndAtivoTrue(code).isPresent());
         return code;
     }

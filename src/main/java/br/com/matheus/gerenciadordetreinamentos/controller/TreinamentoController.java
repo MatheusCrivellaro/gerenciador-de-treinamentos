@@ -1,10 +1,7 @@
 package br.com.matheus.gerenciadordetreinamentos.controller;
 
-import br.com.matheus.gerenciadordetreinamentos.dto.ProfessorDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
-import br.com.matheus.gerenciadordetreinamentos.dto.save.ProfessorSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.TreinamentoSaveDTO;
-import br.com.matheus.gerenciadordetreinamentos.dto.update.ProfessorUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.update.TreinamentoUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.TreinamentoService;
 import jakarta.validation.Valid;
@@ -39,5 +36,11 @@ public class TreinamentoController {
     @PutMapping
     public ResponseEntity<TreinamentoDTO> update(@Valid TreinamentoUpdateDTO data) {
         return ResponseEntity.ok(service.update(data));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

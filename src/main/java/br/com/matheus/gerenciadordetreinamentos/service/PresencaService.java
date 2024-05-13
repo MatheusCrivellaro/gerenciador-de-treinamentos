@@ -2,22 +2,18 @@ package br.com.matheus.gerenciadordetreinamentos.service;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Presenca;
 import br.com.matheus.gerenciadordetreinamentos.dto.PresencaDTO;
-import br.com.matheus.gerenciadordetreinamentos.dto.save.PresencaSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
-import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.FuncionarioNaoAutorizado;
-import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.TreinamentoEncerradoException;
-import br.com.matheus.gerenciadordetreinamentos.mapeador.FuncionarioMapper;
-import br.com.matheus.gerenciadordetreinamentos.mapeador.PresencaMapper;
-import br.com.matheus.gerenciadordetreinamentos.mapeador.TreinamentoMapper;
+import br.com.matheus.gerenciadordetreinamentos.mapeador.mapStruct.PresencaMapper;
 import br.com.matheus.gerenciadordetreinamentos.repository.PresencaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class PresencaService {
+
+    private final String notFoundText = "Presenca not found";
 
     @Autowired
     private PresencaRepository repository;
@@ -30,14 +26,15 @@ public class PresencaService {
 
     public List<PresencaDTO> findAll() {
         var listEntity = repository.findAll();
-        return buildDTO(listEntity);
+        return listEntity.stream().map(Presenca::buildDTO).toList();
     }
 
     public PresencaDTO findById(Long id) {
-        var entity = repository.findById(id).orElseThrow(() -> new DataNotFoundException("Grupo not found"));
-        return buildDTO(entity);
+        var entity = repository.findById(id).orElseThrow(() -> new DataNotFoundException(notFoundText));
+        return entity.buildDTO();
     }
 
+    /*
     public List<PresencaDTO> findByFuncionario(Long id) {
         return buildDTO(funcionarioService.findById(id).getPresencas());
     }
@@ -45,7 +42,9 @@ public class PresencaService {
     public List<PresencaDTO> findByTreinamento(Long id) {
         return buildDTO(treinamentoService.findById(id).getPresencas());
     }
+    */
 
+    /*
     public PresencaDTO confirmPresenca(String code, Long id) {
         var treinamento = treinamentoService.findByCodigo(code);
         var funcionario = funcionarioService.findById(id);
@@ -79,26 +78,16 @@ public class PresencaService {
                 }
         );
     }
+    */
 
     public PresencaDTO save(PresencaDTO data) {
         var entity = PresencaMapper.INSTANCE.toEntity(data);
-        return buildDTO(repository.save(entity));
+        return repository.save(entity).buildDTO();
     }
 
+    /*
     public PresencaDTO save(PresencaSaveDTO data) {
         return confirmPresenca(data.code(), data.funcionario());
     }
-
-    public List<PresencaDTO> buildDTO(List<Presenca> listEntity) {
-        var listDto = PresencaMapper.INSTANCE.toDTOList(listEntity);
-        listDto.forEach(PresencaDTO::addWithSelfRel);
-        return listDto;
-    }
-
-    public PresencaDTO buildDTO(Presenca entity) {
-        var dto = PresencaMapper.INSTANCE.toDTO(entity);
-        dto.addWithSelfRel();
-        return dto;
-    }
-
+    */
 }
