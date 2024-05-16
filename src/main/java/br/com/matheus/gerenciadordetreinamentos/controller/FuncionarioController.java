@@ -1,6 +1,9 @@
 package br.com.matheus.gerenciadordetreinamentos.controller;
 
 import br.com.matheus.gerenciadordetreinamentos.dto.FuncionarioDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.GrupoDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.PresencaDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.FuncionarioSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.update.FuncionarioUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.FuncionarioService;
@@ -28,23 +31,53 @@ public class FuncionarioController {
         return ResponseEntity.ok(service.findAll());
     }
 
-//    @GetMapping("/grupo/{id}")
-//    public ResponseEntity<List<FuncionarioDTO>> findByGrupo(@PathVariable Long id) {
-//        return ResponseEntity.ok(service.findByGrupo(id));
-//    }
-//
-//    @GetMapping("/treinamento/{id}")
-//    public ResponseEntity<List<FuncionarioDTO>> findByTreinamento(@PathVariable Long id) {
-//        return ResponseEntity.ok(service.findByTreinamento(id));
-//    }
+    @GetMapping("/nome")
+    public ResponseEntity<List<FuncionarioDTO>> findByNome(@RequestParam String nome) {
+        return ResponseEntity.ok(service.findByNome(nome));
+    }
+
+    @GetMapping("/usuario")
+    public ResponseEntity<List<FuncionarioDTO>> findByUsuario(@RequestParam String usuario) {
+        return ResponseEntity.ok(service.findByUsuario(usuario));
+    }
+
+    @GetMapping("/cpf")
+    public ResponseEntity<FuncionarioDTO> findByCpf(@RequestParam String cpf) {
+        return ResponseEntity.ok(service.findByCpf(cpf));
+    }
+
+    @GetMapping("/email")
+    public ResponseEntity<List<FuncionarioDTO>> findByEmail(@RequestParam String email) {
+        return ResponseEntity.ok(service.findByEmail(email));
+    }
+
+    @GetMapping("/telefone")
+    public ResponseEntity<FuncionarioDTO> findByTelefone(@RequestParam String telefone) {
+        return ResponseEntity.ok(service.findByTelefone(telefone));
+    }
+
+    @GetMapping("/presencas/{id}")
+    public ResponseEntity<List<PresencaDTO>> presencasBy(@PathVariable Long id) {
+        return ResponseEntity.ok(service.presencasBy(id));
+    }
+
+    @GetMapping("/grupos/{id}")
+    public ResponseEntity<List<GrupoDTO>> gruposBy(@PathVariable Long id) {
+        return ResponseEntity.ok(service.gruposBy(id));
+    }
+
+    @GetMapping("/treinamentos/{id}")
+    public ResponseEntity<List<TreinamentoDTO>> treinamentosBy(@PathVariable Long id) {
+        return ResponseEntity.ok(service.treinamentosBy(id));
+    }
 
     @PostMapping
-    public ResponseEntity<FuncionarioDTO> save(@Valid FuncionarioSaveDTO data) {
+    public ResponseEntity<FuncionarioDTO> save(@Valid @RequestBody FuncionarioSaveDTO data) {
         return ResponseEntity.ok(service.save(data));
     }
 
     @PutMapping
-    public ResponseEntity<FuncionarioDTO> update(@Valid FuncionarioUpdateDTO data) {
+    public ResponseEntity<FuncionarioDTO> update(@Valid @RequestBody FuncionarioUpdateDTO data) {
         return ResponseEntity.ok(service.update(data));
     }
 

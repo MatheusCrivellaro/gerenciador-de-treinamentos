@@ -2,15 +2,12 @@ package br.com.matheus.gerenciadordetreinamentos.dto.save;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record AdministradorSaveDTO(
+public record ConfirmPresencaDTO(
 
         @NotBlank
-        String nome,
+        String code,
 
         @NotBlank
-        String usuario,
+        Long id
 
-        @NotBlank
-        String senha
-
-) {}
+) { }

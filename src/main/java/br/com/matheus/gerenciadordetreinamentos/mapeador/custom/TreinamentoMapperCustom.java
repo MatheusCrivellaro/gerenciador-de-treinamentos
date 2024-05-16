@@ -3,6 +3,7 @@ package br.com.matheus.gerenciadordetreinamentos.mapeador.custom;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Grupo;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Treinamento;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.TreinamentoSaveDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.update.TreinamentoUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
 import br.com.matheus.gerenciadordetreinamentos.repository.GrupoRepository;
 import br.com.matheus.gerenciadordetreinamentos.repository.ProfessorRepository;
@@ -38,6 +39,21 @@ public class TreinamentoMapperCustom {
 
         entity.setProfessor(professorRepository.findByIdAndAtivoTrue(saveDTO.professor()).orElseThrow(() -> new DataNotFoundException("Professor not found")));
         entity.setGrupos(idsForGrupos(saveDTO.grupos()));
+
+        return entity;
+    }
+
+    public Treinamento updateToEntity(TreinamentoUpdateDTO updateDTO) {
+        var entity = new Treinamento();
+        entity.setId(updateDTO.id());
+        entity.setNome(updateDTO.nome());
+        entity.setDescricao(updateDTO.descricao());
+        entity.setData(updateDTO.data());
+        entity.setAbertura(updateDTO.abertura());
+        entity.setEncerramento(updateDTO.encerramento());
+
+        entity.setGrupos(idsForGrupos(updateDTO.grupos()));
+        entity.setProfessor(professorRepository.findByIdAndAtivoTrue(updateDTO.professor()).orElseThrow(() -> new DataNotFoundException("Professor not found")));
 
         return entity;
     }

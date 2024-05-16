@@ -1,7 +1,10 @@
 package br.com.matheus.gerenciadordetreinamentos.service;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Presenca;
+import br.com.matheus.gerenciadordetreinamentos.dto.FuncionarioDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.PresencaDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.save.ConfirmPresencaDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
 import br.com.matheus.gerenciadordetreinamentos.mapeador.mapStruct.PresencaMapper;
 import br.com.matheus.gerenciadordetreinamentos.repository.PresencaRepository;
@@ -19,10 +22,7 @@ public class PresencaService {
     private PresencaRepository repository;
 
     @Autowired
-    private FuncionarioService funcionarioService;
-
-    @Autowired
-    private TreinamentoService treinamentoService;
+    private TreinamentoOperationService treinamentoOperation;
 
     public List<PresencaDTO> findAll() {
         var listEntity = repository.findAll();
@@ -34,60 +34,22 @@ public class PresencaService {
         return entity.buildDTO();
     }
 
-    /*
-    public List<PresencaDTO> findByFuncionario(Long id) {
-        return buildDTO(funcionarioService.findById(id).getPresencas());
+    public FuncionarioDTO funcionariosBy(Long id) {
+        var entity = repository.findById(id).orElseThrow(() -> new DataNotFoundException(notFoundText));
+        return entity.getFuncionario().buildDTO();
     }
 
-    public List<PresencaDTO> findByTreinamento(Long id) {
-        return buildDTO(treinamentoService.findById(id).getPresencas());
+    public TreinamentoDTO treinamentoBy(Long id) {
+        var entity = repository.findById(id).orElseThrow(() -> new DataNotFoundException(notFoundText));
+        return entity.getTreinamento().buildDTO();
     }
-    */
-
-    /*
-    public PresencaDTO confirmPresenca(String code, Long id) {
-        var treinamento = treinamentoService.findByCodigo(code);
-        var funcionario = funcionarioService.findById(id);
-        if (!treinamento.getAtivo())
-            throw new TreinamentoEncerradoException("O Treinamento já foi encerrado");
-        if (treinamentoService.findByFuncionario(id).stream().noneMatch(t -> t.getKey().equals(treinamento.getKey())))
-            throw new FuncionarioNaoAutorizado("O funcionario não faz parte do treinamento");
-
-        var presenca = new Presenca(LocalDateTime.now(), true, FuncionarioMapper.INSTANCE.toEntity(funcionario), TreinamentoMapper.INSTANCE.toEntity(treinamento));
-        return buildDTO(repository.save(presenca));
-    }
-
-    public void endTreinamento(Long id) {
-        buildListaPresenca(id);
-        var entity = TreinamentoMapper.INSTANCE.toEntity(treinamentoService.findById(id));
-        entity.setAtivo(false);
-        treinamentoService.save(TreinamentoMapper.INSTANCE.toDTO(entity));
-    }
-
-    public void buildListaPresenca(Long id) {
-        var listFuncionariosTotais = funcionarioService.findByTreinamento(id);
-        var listPresencas = findByTreinamento(id);
-        var listaFuncionariosAusentes = listFuncionariosTotais.stream().filter(
-                ft -> listPresencas.stream().noneMatch(
-                        p -> ft.getKey().equals(p.getFuncionario().getId()))
-        ).toList();
-        listaFuncionariosAusentes.forEach(
-                f -> {
-                    var presencaEntity = new Presenca(LocalDateTime.now(), false, FuncionarioMapper.INSTANCE.toEntity(f), TreinamentoMapper.INSTANCE.toEntity(treinamentoService.findById(id)));
-                    repository.save(presencaEntity);
-                }
-        );
-    }
-    */
 
     public PresencaDTO save(PresencaDTO data) {
         var entity = PresencaMapper.INSTANCE.toEntity(data);
         return repository.save(entity).buildDTO();
     }
 
-    /*
-    public PresencaDTO save(PresencaSaveDTO data) {
-        return confirmPresenca(data.code(), data.funcionario());
+    public PresencaDTO save(ConfirmPresencaDTO data) {
+        return treinamentoOperation.confirmPresenca(data.code(), data.id());
     }
-    */
 }

@@ -1,6 +1,8 @@
 package br.com.matheus.gerenciadordetreinamentos.controller;
 
+import br.com.matheus.gerenciadordetreinamentos.dto.FuncionarioDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.GrupoDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.GrupoSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.update.GrupoUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.GrupoService;
@@ -28,13 +30,28 @@ public class GrupoController {
         return ResponseEntity.ok(service.findAll());
     }
 
+    @GetMapping("/nome")
+    public ResponseEntity<List<GrupoDTO>> findByNome(@RequestParam String nome) {
+        return ResponseEntity.ok(service.findByNome(nome));
+    }
+
+    @GetMapping("/funcionarios/{id}")
+    public ResponseEntity<List<FuncionarioDTO>> funcionariosBy(@PathVariable Long id) {
+        return ResponseEntity.ok(service.funcionariosBy(id));
+    }
+
+    @GetMapping("/treinamentos/{id}")
+    public ResponseEntity<List<TreinamentoDTO>> treinamentosBy(@PathVariable Long id) {
+        return ResponseEntity.ok(service.treinamentosBy(id));
+    }
+
     @PostMapping
-    public ResponseEntity<GrupoDTO> save(@Valid GrupoSaveDTO data) {
+    public ResponseEntity<GrupoDTO> save(@Valid @RequestBody GrupoSaveDTO data) {
         return ResponseEntity.ok(service.save(data));
     }
 
     @PutMapping
-    public ResponseEntity<GrupoDTO> update(@Valid GrupoUpdateDTO data) {
+    public ResponseEntity<GrupoDTO> update(@Valid @RequestBody GrupoUpdateDTO data) {
         return ResponseEntity.ok(service.update(data));
     }
 

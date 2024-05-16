@@ -1,8 +1,13 @@
 package br.com.matheus.gerenciadordetreinamentos.service;
 
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Professor;
+import br.com.matheus.gerenciadordetreinamentos.domain.model.Treinamento;
 import br.com.matheus.gerenciadordetreinamentos.dto.ProfessorDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.save.ProfessorSaveDTO;
+import br.com.matheus.gerenciadordetreinamentos.dto.update.ProfessorUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.exceptions.expecific.DataNotFoundException;
+import br.com.matheus.gerenciadordetreinamentos.mapeador.custom.ProfessorMapperCustom;
 import br.com.matheus.gerenciadordetreinamentos.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +24,9 @@ public class ProfessorService {
 
     @Autowired
     private TreinamentoService treinamentoService;
+
+    @Autowired
+    private ProfessorMapperCustom mapperCustom;
 
     public List<ProfessorDTO> findAll() {
         var listEntity = repository.findAllByAtivoTrue();
@@ -50,13 +58,20 @@ public class ProfessorService {
         return entity.buildDTO();
     }
 
-//    public ProfessorDTO save(ProfessorSaveDTO data) {
-//    }
-//
-//    public ProfessorDTO update(ProfessorUpdateDTO data) {
-//        if (repository.findByIdAndAtivoTrue(data.id()).isEmpty())
-//            throw new DataNotFoundException("Professor not found");
-//    }
+    public List<TreinamentoDTO> treinamentosBy(Long id) {
+        var entity = repository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException(notFoundText));
+        return entity.getTreinamentos().stream().map(Treinamento::buildDTO).toList();
+    }
+
+    public ProfessorDTO save(ProfessorSaveDTO data) {
+        return repository.save(mapperCustom.saveToEntity(data)).buildDTO();
+    }
+
+    public ProfessorDTO update(ProfessorUpdateDTO data) {
+        if (repository.findByIdAndAtivoTrue(data.id()).isEmpty())
+            throw new DataNotFoundException("Professor not found");
+        return repository.save(mapperCustom.updateToEntity(data)).buildDTO();
+    }
 
     public void delete(Long id) {
         var entity = repository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException(notFoundText));
