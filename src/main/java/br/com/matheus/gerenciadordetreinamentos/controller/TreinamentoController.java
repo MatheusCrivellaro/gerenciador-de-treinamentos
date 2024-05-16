@@ -7,6 +7,7 @@ import br.com.matheus.gerenciadordetreinamentos.dto.save.TreinamentoSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.update.TreinamentoUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.TreinamentoOperationService;
 import br.com.matheus.gerenciadordetreinamentos.service.TreinamentoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/treinamento")
+@Tag(name = "Treinamento", description = "Endpoints para gerenciar Treinamentos")
 public class TreinamentoController {
 
     @Autowired

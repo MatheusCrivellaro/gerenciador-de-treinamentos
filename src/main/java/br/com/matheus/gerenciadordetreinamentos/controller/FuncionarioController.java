@@ -7,6 +7,7 @@ import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.FuncionarioSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.update.FuncionarioUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.FuncionarioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/funcionario")
+@Tag(name = "Funcionario", description = "Endpoints para gerenciar Funcionarios")
 public class FuncionarioController {
 
     @Autowired

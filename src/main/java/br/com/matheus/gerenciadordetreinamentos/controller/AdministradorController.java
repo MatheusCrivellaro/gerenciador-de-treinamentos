@@ -4,6 +4,7 @@ import br.com.matheus.gerenciadordetreinamentos.dto.AdministradorDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.AdministradorSaveDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.update.AdministradorUpdateDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.AdministradorService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/adm")
+@Tag(name = "Administrador", description = "Endpoints para gerenciar Administradores")
 public class AdministradorController {
 
     @Autowired

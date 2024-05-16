@@ -5,6 +5,7 @@ import br.com.matheus.gerenciadordetreinamentos.dto.PresencaDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.TreinamentoDTO;
 import br.com.matheus.gerenciadordetreinamentos.dto.save.ConfirmPresencaDTO;
 import br.com.matheus.gerenciadordetreinamentos.service.PresencaService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/presenca")
+@Tag(name = "Presença", description = "Endpoints para gerenciar as Presenças das aulas")
 public class PresencaController {
 
     @Autowired
