@@ -66,31 +66,36 @@ public class FuncionarioController {
         return ResponseEntity.ok(service.findByUsuario(usuario));
     }
 
+    @Operation(summary = "Busca um Funcionario pelo CPF", description = "Busca um único funcionario pelo CPF, que é recebido por um parametro na URL", tags = {"Funcionario"})
     @GetMapping("/cpf")
     public ResponseEntity<FuncionarioDTO> findByCpf(@RequestParam String cpf) {
         return ResponseEntity.ok(service.findByCpf(cpf));
     }
 
+    @Operation(summary = "Busca Funcionarios pelo Email", description = "Busca todos os funcionarios que possuem a String buscada no campo email, que é recebida por um parametro na URL", tags = {"Funcionario"})
     @GetMapping("/email")
     public ResponseEntity<List<FuncionarioDTO>> findByEmail(@RequestParam String email) {
         return ResponseEntity.ok(service.findByEmail(email));
     }
 
+    @Operation(summary = "Busca um Funcionario pelo telefone", description = "Busca um único funcionario pelo email, que é recebido por um parametro na URL.", tags = {"Funcionario"})
     @GetMapping("/telefone")
     public ResponseEntity<FuncionarioDTO> findByTelefone(@RequestParam String telefone) {
         return ResponseEntity.ok(service.findByTelefone(telefone));
     }
 
+    @Operation(summary = "Busca as Presenças de um funcionario", description = "Busca todas as presenças de um funcionario, independente do treinamento. Esse funcionario é buscado pelo ID, que deve ser passado pelo Path.", tags = {"Funcionario"})
     @GetMapping("/presencas/{id}")
     public ResponseEntity<List<PresencaDTO>> presencasBy(@PathVariable Long id) {
         return ResponseEntity.ok(service.presencasBy(id));
     }
-
+    @Operation(summary = "Busca os Grupos de um funcionario", description = "Busca todos os grupos que um funcionario, buscado pelo ID, que deve ser passado no Path, faz parte.", tags = {"Funcionario"})
     @GetMapping("/grupos/{id}")
     public ResponseEntity<List<GrupoDTO>> gruposBy(@PathVariable Long id) {
         return ResponseEntity.ok(service.gruposBy(id));
     }
 
+    @Operation(summary = "Busca os Treinamentos de um funcionario", description = "Busca todos os treinamentos que o funcionario, buscado pelo ID, que deve ser passado pelo Path, faz parte.", tags = {"Funcionario"})
     @GetMapping("/treinamentos/{id}")
     public ResponseEntity<List<TreinamentoDTO>> treinamentosBy(@PathVariable Long id) {
         return ResponseEntity.ok(service.treinamentosBy(id));

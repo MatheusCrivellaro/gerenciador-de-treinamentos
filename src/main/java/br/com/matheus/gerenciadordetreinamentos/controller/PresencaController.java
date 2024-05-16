@@ -66,6 +66,7 @@ public class PresencaController {
         return ResponseEntity.ok(service.treinamentoBy(id));
     }
 
+    @Operation(summary = "Confirma Presença na aula.", description = "Confirma a presença de um funcionario pelo codigo da aula, e pelo id do funcionario, os quais são passados via body. Esse metodo possui varias validações internas, consulte a documentação interna para saber mais.")
     @PostMapping("/confirm")
     public ResponseEntity<PresencaDTO> confirm(@RequestBody @Valid ConfirmPresencaDTO data) {
         return ResponseEntity.ok().body(service.save(data));

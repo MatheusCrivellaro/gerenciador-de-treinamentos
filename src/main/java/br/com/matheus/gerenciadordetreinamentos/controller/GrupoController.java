@@ -57,16 +57,19 @@ public class GrupoController {
         return ResponseEntity.ok(service.findAll());
     }
 
+    @Operation(summary = "Busca Grupos por nome", description = "Busca todos os grupos que possuem a String buscada no campo nome. Essa String deve ser passada por um param nome.")
     @GetMapping("/nome")
     public ResponseEntity<List<GrupoDTO>> findByNome(@RequestParam String nome) {
         return ResponseEntity.ok(service.findByNome(nome));
     }
 
+    @Operation(summary = "Busca os funcionarios do grupo", description = "Busca todos os funcionarios que fazem parte do grupo, buscado pelo ID, que é passavo pelo Path.")
     @GetMapping("/funcionarios/{id}")
     public ResponseEntity<List<FuncionarioDTO>> funcionariosBy(@PathVariable Long id) {
         return ResponseEntity.ok(service.funcionariosBy(id));
     }
 
+    @Operation(summary = "Busca os Treinamentos do Grupo", description = "Busca todos os treinamentos que o grupo faz parte, grupo no qual é buscado pelo ID, que é passado pelo Path.")
     @GetMapping("/treinamentos/{id}")
     public ResponseEntity<List<TreinamentoDTO>> treinamentosBy(@PathVariable Long id) {
         return ResponseEntity.ok(service.treinamentosBy(id));
