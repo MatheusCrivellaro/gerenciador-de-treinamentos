@@ -4,6 +4,7 @@ import br.com.matheus.gerenciadordetreinamentos.controller.FuncionarioController
 import br.com.matheus.gerenciadordetreinamentos.domain.enums.Genero;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Grupo;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Presenca;
+import br.com.matheus.gerenciadordetreinamentos.dto.view.FuncionarioViewDTO;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
@@ -51,6 +52,21 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> {
 
     public void addWithSelfRel() {
         this.add(linkTo(methodOn(FuncionarioController.class).findById(this.getKey())).withSelfRel());
+    }
+
+    public FuncionarioViewDTO toView() {
+        return new FuncionarioViewDTO(
+                this.key,
+                this.nome,
+                this.email,
+                this.usuario,
+                this.telefone,
+                this.cpf,
+                this.genero,
+                this.dataNascimento,
+                this.grupos.stream().map(Grupo::getId).toList(),
+                this.presencas.stream().map(Presenca::getId).toList()
+        );
     }
 
     public Long getKey() {

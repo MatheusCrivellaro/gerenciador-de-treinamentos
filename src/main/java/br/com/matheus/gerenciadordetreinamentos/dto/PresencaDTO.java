@@ -3,6 +3,7 @@ package br.com.matheus.gerenciadordetreinamentos.dto;
 import br.com.matheus.gerenciadordetreinamentos.controller.PresencaController;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Funcionario;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Treinamento;
+import br.com.matheus.gerenciadordetreinamentos.dto.view.PresencaViewDTO;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
@@ -32,6 +33,16 @@ public class PresencaDTO extends RepresentationModel<PresencaDTO> {
 
     public void addWithSelfRel() {
         this.add(linkTo(methodOn(PresencaController.class).findById(this.getKey())).withSelfRel());
+    }
+
+    public PresencaViewDTO toView() {
+        return new PresencaViewDTO(
+                this.key,
+                this.dataPublicacao,
+                this.presente,
+                this.funcionario.getId(),
+                this.treinamento.getId()
+        );
     }
 
     public Long getKey() {

@@ -3,6 +3,7 @@ package br.com.matheus.gerenciadordetreinamentos.dto;
 import br.com.matheus.gerenciadordetreinamentos.controller.GrupoController;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Funcionario;
 import br.com.matheus.gerenciadordetreinamentos.domain.model.Treinamento;
+import br.com.matheus.gerenciadordetreinamentos.dto.view.GrupoViewDTO;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
@@ -34,6 +35,16 @@ public class GrupoDTO extends RepresentationModel<GrupoDTO> {
 
     public void addWithSelfRel() {
         this.add(linkTo(methodOn(GrupoController.class).findById(this.getKey())).withSelfRel());
+    }
+
+    public GrupoViewDTO toView() {
+        return new GrupoViewDTO(
+                this.key,
+                this.nome,
+                this.descricao,
+                this.funcionarios.stream().map(Funcionario::getId).toList(),
+                this.treinamentos.stream().map(Treinamento::getId).toList()
+        );
     }
 
     public Long getKey() {
