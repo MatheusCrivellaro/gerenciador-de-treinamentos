@@ -1,6 +1,6 @@
 package br.com.matheus.gerenciadordetreinamentos.dto.view;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 public record ProfessorViewDTO(
@@ -10,7 +10,7 @@ public record ProfessorViewDTO(
         String usuario,
         String email,
         String telefone,
-        LocalDateTime dataNascimento,
+        LocalDate dataNascimento,
 
         List<Long>treinamentos
 

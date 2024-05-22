@@ -29,6 +29,7 @@ public class GrupoMapperCustom {
         entity.setAtivo(true);
 
         entity.setFuncionarios(idsToFuncionarios(saveDTO.funcionarios()));
+        entity.setTreinamentos(List.of());
         return entity;
     }
 

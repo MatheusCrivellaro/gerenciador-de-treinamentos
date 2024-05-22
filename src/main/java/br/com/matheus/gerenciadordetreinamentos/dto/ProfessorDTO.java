@@ -5,6 +5,7 @@ import br.com.matheus.gerenciadordetreinamentos.domain.model.Treinamento;
 import br.com.matheus.gerenciadordetreinamentos.dto.view.ProfessorViewDTO;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,13 +20,13 @@ public class ProfessorDTO extends RepresentationModel<ProfessorDTO> {
     private String senha;
     private String email;
     private String telefone;
-    private LocalDateTime dataNascimento;
+    private LocalDate dataNascimento;
     private LocalDateTime dataCadastro;
     private Boolean ativo;
 
     private List<Treinamento> treinamentos;
 
-    public ProfessorDTO(Long key, String nome, String usuario, String senha, String email, String telefone, LocalDateTime dataNascimento, LocalDateTime dataCadastro, Boolean ativo, List<Treinamento> treinamentos) {
+    public ProfessorDTO(Long key, String nome, String usuario, String senha, String email, String telefone, LocalDate dataNascimento, LocalDateTime dataCadastro, Boolean ativo, List<Treinamento> treinamentos) {
         this.key = key;
         this.nome = nome;
         this.usuario = usuario;
@@ -105,11 +106,11 @@ public class ProfessorDTO extends RepresentationModel<ProfessorDTO> {
         this.telefone = telefone;
     }
 
-    public LocalDateTime getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(LocalDateTime dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

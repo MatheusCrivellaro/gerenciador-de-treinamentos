@@ -28,6 +28,7 @@ public class ProfessorMapperCustom {
         entity.setDataNascimento(saveDTO.dataNascimento());
         entity.setDataRegistro(LocalDateTime.now());
         entity.setAtivo(true);
+        entity.setTreinamentos(List.of());
         return entity;
     }
 

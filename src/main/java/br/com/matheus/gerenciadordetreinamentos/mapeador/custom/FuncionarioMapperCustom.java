@@ -34,6 +34,7 @@ public class FuncionarioMapperCustom {
         entity.setDataNascimento(saveDTO.dataNascimento());
         entity.setDataRegistro(LocalDateTime.now());
         entity.setAtivo(true);
+        entity.setPresencas(List.of());
 
         entity.setGrupos(idsForGrupos(saveDTO.grupos()));
         return entity;
@@ -58,8 +59,8 @@ public class FuncionarioMapperCustom {
     }
 
     private List<Grupo> idsForGrupos(List<Long> grupos) {
-        return grupos.stream().map(
-                id -> grupoRepository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException("Funcionario not found"))
+        return grupos.isEmpty() ? List.of() : grupos.stream().map(
+                id -> grupoRepository.findByIdAndAtivoTrue(id).orElseThrow(() -> new DataNotFoundException("Grupo not found"))
         ).toList();
     }
 

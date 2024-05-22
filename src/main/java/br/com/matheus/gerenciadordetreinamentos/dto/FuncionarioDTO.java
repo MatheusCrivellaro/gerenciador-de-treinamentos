@@ -64,8 +64,8 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> {
                 this.cpf,
                 this.genero,
                 this.dataNascimento,
-                this.grupos.stream().map(Grupo::getId).toList(),
-                this.presencas.stream().map(Presenca::getId).toList()
+                this.grupos.isEmpty() ? List.of() : this.grupos.stream().map(Grupo::getId).toList(),
+                this.presencas.isEmpty() ? List.of() : this.presencas.stream().map(Presenca::getId).toList()
         );
     }
 

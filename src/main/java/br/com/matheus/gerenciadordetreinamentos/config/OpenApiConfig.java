@@ -20,7 +20,7 @@ public class OpenApiConfig {
                                 .email("matheuscriv@gmail.com")
                                 .url("https://github.com/MatheusCrivellaro")
                         )
-                        .version("1.1.1"));
+                        .version("1.1.3"));
     }
 
 }
