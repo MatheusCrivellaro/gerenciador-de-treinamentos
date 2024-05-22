@@ -30,7 +30,6 @@ public record FuncionarioSaveDTO(
         @NotNull
         Genero genero,
 
-        @NotBlank
         LocalDate dataNascimento,
 
         List<Long> grupos

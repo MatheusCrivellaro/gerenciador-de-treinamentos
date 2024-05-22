@@ -6,7 +6,6 @@ import java.util.List;
 
 public record ProfessorUpdateDTO(
 
-        @NotBlank
         Long id,
         String nome,
         String usuario,

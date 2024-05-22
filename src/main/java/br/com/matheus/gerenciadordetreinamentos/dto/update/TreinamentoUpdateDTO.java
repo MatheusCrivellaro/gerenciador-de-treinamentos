@@ -8,7 +8,6 @@ import java.util.List;
 
 public record TreinamentoUpdateDTO(
 
-        @NotBlank
         Long id,
         String nome,
         String descricao,

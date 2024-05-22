@@ -14,16 +14,12 @@ public record TreinamentoSaveDTO(
         @NotBlank
         String descricao,
 
-        @NotBlank
         LocalDate data,
 
-        @NotBlank
         LocalTime abertura,
 
-        @NotBlank
         LocalTime encerramento,
 
-        @NotBlank
         List<Long>grupos,
         Long professor
 

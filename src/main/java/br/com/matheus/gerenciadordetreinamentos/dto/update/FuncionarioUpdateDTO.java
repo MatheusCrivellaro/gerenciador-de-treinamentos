@@ -6,7 +6,6 @@ import java.util.List;
 
 public record FuncionarioUpdateDTO(
 
-        @NotBlank
         Long id,
         String nome,
         String email,

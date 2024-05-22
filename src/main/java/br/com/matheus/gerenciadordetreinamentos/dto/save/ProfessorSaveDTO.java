@@ -21,7 +21,6 @@ public record ProfessorSaveDTO(
         @NotBlank
         String telefone,
 
-        @NotBlank
         LocalDate dataNascimento
 
 ) {}

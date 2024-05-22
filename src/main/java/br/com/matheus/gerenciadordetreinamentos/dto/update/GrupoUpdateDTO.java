@@ -6,7 +6,6 @@ import java.util.List;
 
 public record GrupoUpdateDTO(
 
-        @NotBlank
         Long id,
         String nome,
         String descricao,

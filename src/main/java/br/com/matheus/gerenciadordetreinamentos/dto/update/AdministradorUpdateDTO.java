@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 
 public record AdministradorUpdateDTO(
 
-        @NotBlank
         Long id,
         String nome,
         String usuario,
